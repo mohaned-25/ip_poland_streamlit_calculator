@@ -19,17 +19,7 @@ def load_formula_catalog() -> dict:
     formula_file = DATA_DIR / "formula_catalog.json"
 
     if not formula_file.exists():
-        return_options() -> list[str]:        return {
-    return list(load_materials()["paper_types"].keys())
-
-
-def get_paper(name: str) -> dict:
-    papers = load_materials()["paper_types"]
-
-    if name not in papers:
-        raise KeyError(f"Unknown paper/material type: {name}")
-
-    return papers[name]
+        return {
             "source": "Not uploaded yet",
             "total_formulas": 0,
             "sheet_stats": [],
@@ -40,3 +30,14 @@ def get_paper(name: str) -> dict:
         return json.load(f)
 
 
+def paper_options() -> list[str]:
+    return list(load_materials()["paper_types"].keys())
+
+
+def get_paper(name: str) -> dict:
+    papers = load_materials()["paper_types"]
+
+    if name not in papers:
+        raise KeyError(f"Unknown paper/material type: {name}")
+
+    return papers[name]
