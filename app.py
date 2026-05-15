@@ -13,12 +13,16 @@ from core.data_loader import (
 )
 from core.exporter import make_quote_dataframe
 from core.formulas import calculate_edge_protector, calculate_tube
-from core    page_icon="🧮",from core.models import EdgeProtectorInput, TubeInput
+from core.models import EdgeProtectorInput, TubeInput
+
+
+st.set_page_config(
+    page_title="IP Poland Pricing Engine",
+    page_icon="🧮",
     layout="wide",
     initial_sidebar_state="expanded",
 )
-
-
+``
 def inject_css() -> None:
     st.markdown(
         """
