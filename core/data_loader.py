@@ -14,6 +14,7 @@ def load_materials() -> dict:
         return json.load(f)
 
 
+@lru_cache(maxsize=2)
 def load_formula_catalog() -> dict:
     formula_file = DATA_DIR / "formula_catalog.json"
 
