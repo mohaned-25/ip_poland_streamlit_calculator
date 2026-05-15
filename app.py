@@ -6,11 +6,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-from core.data_loader import (
-    load_formula_catalog,
-    load_materials,
-    paper_options,
-)
+from core.data_loader import load_formula_catalog, load_materials, paper_options
 from core.exporter import make_quote_dataframe
 from core.formulas import calculate_edge_protector, calculate_tube
 from core.models import EdgeProtectorInput, TubeInput
@@ -22,6 +18,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
 
 def inject_css() -> None:
     st.markdown(
@@ -42,25 +39,12 @@ def inject_css() -> None:
         }
 
         .hero {
-            padding: 32px 34px;
+            padding: 34px;
             border: 1px solid rgba(148,163,184,.22);
             border-radius: 28px;
-            background: linear-gradient(135deg, rgba(15,23,42,.92), rgba(30,41,59,.62));
+            background: linear-gradient(135deg, rgba(15,23,42,.94), rgba(30,41,59,.66));
             box-shadow: 0 24px 80px rgba(0,0,0,.38);
-            margin-bottom: 22px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero:before {
-            content: "";
-            position: absolute;
-            top: -80px;
-            right: -80px;
-            width: 240px;
-            height: 240px;
-            background: radial-gradient(circle, rgba(0,229,255,.45), transparent 68%);
-            filter: blur(10px);
+            margin-bottom: 24px;
         }
 
         .hero h1 {
@@ -77,7 +61,19 @@ def inject_css() -> None:
         .hero p {
             color: #CBD5E1;
             font-size: 17px;
-            max-width: 980px;
+            max-width: 1050px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: rgba(0,229,255,.12);
+            color: #67E8F9;
+            border: 1px solid rgba(103,232,249,.25);
+            font-weight: 700;
+            margin-right: 8px;
+            margin-bottom: 12px;
         }
 
         .glass-card {
@@ -89,7 +85,7 @@ def inject_css() -> None:
         }
 
         div[data-testid="metric-container"] {
-            background: linear-gradient(145deg, rgba(15,23,42,.86), rgba(30,41,59,.60));
+            background: linear-gradient(145deg, rgba(15,23,42,.88), rgba(30,41,59,.62));
             border: 1px solid rgba(148,163,184,.18);
             padding: 18px;
             border-radius: 20px;
@@ -103,18 +99,6 @@ def inject_css() -> None:
         div[data-testid="metric-container"] [data-testid="stMetricValue"] {
             color: #F8FAFC;
             font-weight: 900;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 7px 12px;
-            border-radius: 999px;
-            background: rgba(0,229,255,.12);
-            color: #67E8F9;
-            border: 1px solid rgba(103,232,249,.25);
-            font-weight: 700;
-            margin-right: 8px;
-            margin-bottom: 12px;
         }
 
         .warning-box {
@@ -140,13 +124,14 @@ def hero() -> None:
     st.markdown(
         """
         <div class="hero">
-          <span class="badge">STREAMLIT PRICING ENGINE</span>
-          <span class="badge">IP POLAND 2025</span>
-          <h1>Industrial Packaging Calculator</h1>
-          <p>
-            Professional pricing cockpit for Edge Protectors, Tubes/Cores,
-            palletization, strength estimation, margin simulation, and Excel formula audit.
-          </p>
+            <span class="badge">STREAMLIT PRICING ENGINE</span>
+            <span class="badge">IP POLAND 2025</span>
+            <h1>Industrial Packaging Calculator</h1>
+            <p>
+                Professional pricing cockpit for Edge Protectors, Tubes/Cores,
+                palletization, strength estimation, margin simulation, material data,
+                and Excel-to-Python formula migration.
+            </p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -225,10 +210,7 @@ def dashboard_page() -> None:
 
     c1, c2, c3, c4 = st.columns(4)
 
-    c1.metric(
-        "Formula cells loaded",
-        f"{catalog.get('total_formulas', 0):,}",
-    )
+    c1.metric("Formula cells loaded", f"{catalog.get('total_formulas', 0):,}")
     c2.metric("Product modules", "4+")
     c3.metric("Current MVP", "Edge + Tubes")
     c4.metric("Currency", "PLN")
@@ -265,11 +247,7 @@ def dashboard_page() -> None:
         ]
     )
 
-    st.dataframe(
-        status,
-        use_container_width=True,
-        hide_index=True,
-    )
+    st.dataframe(status, use_container_width=True, hide_index=True)
 
 
 def edge_page() -> None:
@@ -396,30 +374,14 @@ def edge_page() -> None:
 
             logistics = pd.DataFrame(
                 [
-                    {
-                        "Metric": "Total running meters",
-                        "Value": result.total_running_m,
-                    },
-                    {
-                        "Metric": "Net weight kg",
-                        "Value": result.net_weight_kg,
-                    },
-                    {
-                        "Metric": "Pallets",
-                        "Value": result.pallets,
-                    },
-                    {
-                        "Metric": "Pallet weight kg",
-                        "Value": result.pallet_weight_kg,
-                    },
+                    {"Metric": "Total running meters", "Value": result.total_running_m},
+                    {"Metric": "Net weight kg", "Value": result.net_weight_kg},
+                    {"Metric": "Pallets", "Value": result.pallets},
+                    {"Metric": "Pallet weight kg", "Value": result.pallet_weight_kg},
                 ]
             )
 
-            st.dataframe(
-                logistics,
-                use_container_width=True,
-                hide_index=True,
-            )
+            st.dataframe(logistics, use_container_width=True, hide_index=True)
 
         with b:
             st.markdown("#### Production order")
@@ -564,10 +526,7 @@ def tube_page() -> None:
         st.markdown("#### Calculation summary")
 
         st.dataframe(
-            pd.DataFrame(
-                result_dict.items(),
-                columns=["Metric", "Value"],
-            ),
+            pd.DataFrame(result_dict.items(), columns=["Metric", "Value"]),
             use_container_width=True,
             hide_index=True,
         )
@@ -603,11 +562,7 @@ def materials_page() -> None:
         .rename(columns={"index": "material"})
     )
 
-    st.dataframe(
-        material_df,
-        use_container_width=True,
-        hide_index=True,
-    )
+    st.dataframe(material_df, use_container_width=True, hide_index=True)
 
     st.markdown("### FX rates")
     st.json(data["fx_rates"])
@@ -629,11 +584,7 @@ def formula_audit_page() -> None:
     stats = pd.DataFrame(catalog.get("sheet_stats", []))
 
     if not stats.empty:
-        st.dataframe(
-            stats,
-            use_container_width=True,
-            hide_index=True,
-        )
+        st.dataframe(stats, use_container_width=True, hide_index=True)
     else:
         st.info(
             "Formula catalog is not uploaded yet. "
@@ -643,10 +594,7 @@ def formula_audit_page() -> None:
     formulas = catalog.get("formulas", [])
 
     if formulas:
-        sheet_names = [
-            item.get("sheet", "")
-            for item in catalog.get("sheet_stats", [])
-        ]
+        sheet_names = [item.get("sheet", "") for item in catalog.get("sheet_stats", [])]
 
         sheet = st.selectbox(
             "Filter by sheet",
@@ -654,18 +602,15 @@ def formula_audit_page() -> None:
         )
 
         if sheet != "All":
-            formulas = [
-                f for f in formulas
-                if f.get("sheet") == sheet
-            ]
+            formulas = [f for f in formulas if f.get("sheet") == sheet]
 
         query = st.text_input("Search formula text / cell")
 
         if query:
             q = query.lower()
-
             formulas = [
-                f for f in formulas
+                f
+                for f in formulas
                 if q in str(f.get("formula", "")).lower()
                 or q in str(f.get("cell", "")).lower()
             ]
@@ -727,7 +672,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-
-st.set_page_config(
-    page_title="IP Poland Pricing Engine",
