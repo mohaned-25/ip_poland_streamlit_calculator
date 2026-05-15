@@ -1,0 +1,77 @@
+{
+  "source": "Calculator_ceny_IP Poland_2025 w_o price.xlsx",
+  "total_formulas": 13808,
+  "sheet_stats": [
+    {
+      "sheet": "EdgProt Calculator",
+      "formulas": 160,
+      "rows": 91,
+      "cols": 33,
+      "status": "MVP partially migrated"
+    },
+    {
+      "sheet": "Tubes Calculator",
+      "formulas": 174,
+      "rows": 96,
+      "cols": 33,
+      "status": "MVP partially migrated"
+    },
+    {
+      "sheet": "Paper",
+      "formulas": 216,
+      "rows": 468,
+      "cols": 55,
+      "status": "Material database partially migrated"
+    },
+    {
+      "sheet": "CardboardPallets_2",
+      "formulas": 919,
+      "rows": 95,
+      "cols": 63,
+      "status": "Planned"
+    },
+    {
+      "sheet": "CardboardPallets",
+      "formulas": 71,
+      "rows": 24,
+      "cols": 28,
+      "status": "Planned"
+    },
+    {
+      "sheet": "Technology",
+      "formulas": 44,
+      "rows": 36,
+      "cols": 31,
+      "status": "Planned"
+    },
+    {
+      "sheet": "Technology_2",
+      "formulas": 66,
+      "rows": 33,
+      "cols": 20,
+      "status": "Planned"
+    },
+    {
+      "sheet": "HoneyComb",
+      "formulas": 12158,
+      "rows": 1499,
+      "cols": 53,
+      "status": "High complexity - planned later"
+    },
+    {
+      "sheet": "Kursy NBU",
+      "formulas": 0,
+      "rows": 369,
+      "cols": 7,
+      "status": "Reference data"
+    },
+    {
+      "sheet": "Kursy NBP",
+      "formulas": 0,
+      "rows": 539,
+      "cols": 3,
+      "status": "Reference data"
+    }
+  ],
+  "formulas": []
+}
