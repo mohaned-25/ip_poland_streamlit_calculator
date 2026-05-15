@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 
 
 @dataclass
@@ -18,7 +18,11 @@ class EdgeProtectorInput:
     currency: str = "PLN"
 
 
-@dataclass_m: float@dataclass
+@dataclass
+class EdgeProtectorResult:
+    weight_kg_per_rm: float
+    weight_kg_per_piece: float
+    total_running_m: float
     net_weight_kg: float
     pallets: int
     pallet_weight_kg: float
@@ -30,7 +34,7 @@ class EdgeProtectorInput:
     margin_value_pln: float
     control_price_per_kg_pln: float
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return asdict(self)
 
 
@@ -65,8 +69,5 @@ class TubeResult:
     margin_value_pln: float
     control_price_per_kg_pln: float
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return asdict(self)
-class EdgeProtectorResult:
-    weight_kg_per_rm: float
-    weight_kg_per_piece: float
