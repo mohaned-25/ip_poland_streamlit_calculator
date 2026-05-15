@@ -10,7 +10,12 @@ DATA_DIR = BASE_DIR / "data"
 
 @lru_cache(maxsize=4)
 def load_materials() -> dict:
-    with open(DATA_DIR / "materials_catalog() -> dict:    with open(DATA_DIR / "materials.json", "r", encoding="utf-8") as f:
+    with open(DATA_DIR / "materials.json", "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+@lru_cache(maxsize=2)
+def load_formula_catalog() -> dict:
     formula_file = DATA_DIR / "formula_catalog.json"
 
     if not formula_file.exists():
@@ -36,7 +41,3 @@ def get_paper(name: str) -> dict:
         raise KeyError(f"Unknown paper/material type: {name}")
 
     return papers[name]
-        return json.load(f)
-
-
-@lru_cache(maxsize=2)
