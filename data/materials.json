@@ -1,0 +1,102 @@
+{
+  "paper_types": {
+    "IPP-0": {
+      "density": 580,
+      "bulk": 1.7241379310344827,
+      "scott_bond": 102,
+      "tea_index": 0.17,
+      "price_dap_pln_kg": 0
+    },
+    "IPP-10": {
+      "density": 590,
+      "bulk": 1.694915254237288,
+      "scott_bond": 150,
+      "tea_index": 0.25,
+      "price_dap_pln_kg": 0
+    },
+    "IPP-20": {
+      "density": 620,
+      "bulk": 1.6129032258064515,
+      "scott_bond": 222,
+      "tea_index": 0.37,
+      "price_dap_pln_kg": 0
+    },
+    "IPP-30": {
+      "density": 660,
+      "bulk": 1.5151515151515151,
+      "scott_bond": 300,
+      "tea_index": 0.5,
+      "price_dap_pln_kg": 0
+    },
+    "IPP-40": {
+      "density": 690,
+      "bulk": 1.4492753623188406,
+      "scott_bond": 402,
+      "tea_index": 0.67,
+      "price_dap_pln_kg": 0
+    },
+    "IPP-50": {
+      "density": 700,
+      "bulk": 1.4285714285714286,
+      "scott_bond": 510,
+      "tea_index": 0.85,
+      "price_dap_pln_kg": 0
+    },
+    "IPP-60": {
+      "density": 700,
+      "bulk": 1.4285714285714286,
+      "scott_bond": 600,
+      "tea_index": 1,
+      "price_dap_pln_kg": 0
+    },
+    "Testliner Grey": {
+      "density": 700,
+      "bulk": 1.4285714285714286,
+      "scott_bond": 240,
+      "tea_index": 0.4,
+      "price_dap_pln_kg": 0
+    },
+    "Testliner White": {
+      "density": 780,
+      "bulk": 1.2820512820512822,
+      "scott_bond": 420,
+      "tea_index": 0.7,
+      "price_dap_pln_kg": 0
+    },
+    "Kraftliner": {
+      "density": 800,
+      "bulk": 1.25,
+      "scott_bond": 540,
+      "tea_index": 0.9,
+      "price_dap_pln_kg": 0
+    },
+    "Kraft": {
+      "density": 800,
+      "bulk": 1.25,
+      "scott_bond": 1260,
+      "tea_index": 2.1,
+      "price_dap_pln_kg": 0
+    }
+  },
+  "fx_rates": {
+    "PLN": 1,
+    "EUR": 4.2881,
+    "USD": 3.7565,
+    "UAH": 0.0907,
+    "UAH_PER_PLN_NBU": 11.0559
+  },
+  "commercial_defaults": {
+    "transport_cost_pln": 0,
+    "margin_percent": 0,
+    "wooden_pallet_pln": 20,
+    "logistics_pln": 600
+  },
+  "calibration": {
+    "edge_weight_factor": 1.141432863651662,
+    "tube_weight_factor": 1.3042609452561077,
+    "edge_strength_factor": 7032.227801863563,
+    "tube_flat_crush_factor": 588,
+    "edge_reference_cost_pln_per_kg": 0.24560714285714283,
+    "tube_reference_cost_pln_per_kg": 0.21358030826087473
+  }
+}
