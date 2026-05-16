@@ -522,9 +522,136 @@ def quote_builder_page() -> None:
         )
 
     else:
-        st.info(
-            "Tube / Core quote input will be added in the next step. "
-            "For now, select Edge Protector to test the quote calculation."
+        st.markdown("### Tube / Core quote input")
+
+        papers = paper_options()
+
+        c1, c2, c3 = st.columns(3)
+
+        product_type = c1.selectbox(
+            "Type",
+            papers,
+            index=papers.index("IPP-30") if "IPP-30" in papers else 0,
+            key="quote_tube_type",
+        )
+
+        outer_cover = c2.selectbox(
+            "Outer cover",
+            papers,
+            index=papers.index("Testliner Grey") if "Testliner Grey" in papers else 0,
+            key="quote_tube_outer",
+        )
+
+        inner_cover = c3.selectbox(
+            "Inner cover",
+            ["nie"] + papers,
+            index=0,
+            key="quote_tube_inner",
+        )
+
+        d1, d2, d3, d4 = st.columns(4)
+
+        diameter = d1.number_input(
+            "Diameter, mm",
+            min_value=1.0,
+            value=76.8,
+            step=0.1,
+            key="quote_tube_diameter",
+        )
+
+        thickness = d2.number_input(
+            "Thickness, mm",
+            min_value=0.1,
+            value=5.8,
+            step=0.1,
+            key="quote_tube_thickness",
+        )
+
+        length = d3.number_input(
+            "Length, mm",
+            min_value=1.0,
+            value=525.0,
+            step=5.0,
+            key="quote_tube_length",
+        )
+
+        quantity = d4.number_input(
+            "Quantity, pcs",
+            min_value=1,
+            value=27324,
+            step=100,
+            key="quote_tube_qty",
+        )
+
+        commercial_1, commercial_2, commercial_3 = st.columns(3)
+
+        qty_per_pallet = commercial_1.number_input(
+            "Qty per pallet",
+            min_value=1,
+            value=37,
+            step=1,
+            key="quote_tube_qty_per_pallet",
+        )
+
+        transport = commercial_2.number_input(
+            "Transport, PLN",
+            min_value=0.0,
+            value=0.0,
+            step=50.0,
+            key="quote_tube_transport",
+        )
+
+        margin = commercial_3.number_input(
+            "Margin, %",
+            min_value=-100.0,
+            value=0.0,
+            step=1.0,
+            key="quote_tube_margin",
+        )
+
+        quote_input = TubeInput(
+            diameter_mm=diameter,
+            thickness_mm=thickness,
+            length_mm=length,
+            product_type=product_type,
+            inner_cover=inner_cover,
+            outer_cover=outer_cover,
+            quantity_pcs=int(quantity),
+            quantity_per_pallet=int(qty_per_pallet),
+            transport_cost_pln=transport,
+            margin_percent=margin,
+        )
+
+        quote_result = calculate_tube(quote_input)
+        quote_result_dict = quote_result.to_dict()
+
+        st.markdown("### Tube / Core quote result")
+
+        r1, r2, r3, r4 = st.columns(4)
+
+        r1.metric(
+            "Price / r.m.",
+            money(quote_result.price_per_rm_pln),
+        )
+
+        r2.metric(
+            "Price / piece",
+            money(quote_result.price_per_piece_pln),
+        )
+
+        r3.metric(
+            "Total value",
+            money(quote_result.total_value_pln),
+        )
+
+        r4.metric(
+            "Net weight",
+            f"{quote_result.net_weight_kg:,.2f} kg",
+        )
+
+        result_chart(
+            quote_result_dict,
+            "Tube / Core Quote",
         )
 
     preview_df = pd.DataFrame(
