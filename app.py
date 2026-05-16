@@ -527,7 +527,7 @@ def quote_builder_page() -> None:
         step=1,
     )
 
-    quote_meta_1, quote_meta_2 = st.columns(2)
+    quote_meta_1, quote_meta_2, quote_meta_3 = st.columns(3)
 
     quote_id = quote_meta_1.text_input(
         "Quote ID",
@@ -538,6 +538,13 @@ def quote_builder_page() -> None:
     quote_date = quote_meta_2.date_input(
         "Quote date",
     )
+
+    selected_currency = quote_meta_3.selectbox(
+        "Display currency",
+        ["PLN", "EUR", "USD", "UAH"],
+        index=0,
+    )
+
     quote_date_text = quote_date.strftime("%Y-%m-%d")
 
     st.divider()
