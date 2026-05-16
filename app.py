@@ -29,238 +29,205 @@ def inject_css() -> None:
         """
         <style>
         :root {
-            --ip-navy: #102A43;
-            --ip-blue: #1D5F99;
-            --ip-blue-soft: #E8F2FB;
-            --ip-kraft: #B77838;
-            --ip-green: #2F7D55;
-            --ip-bg: #F5F7FA;
-            --ip-card: #FFFFFF;
-            --ip-border: #D9E2EC;
-            --ip-text: #162033;
-            --ip-muted: #64748B;
-        }
-
-        @keyframes fadeSlideUp {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            --navy: #0F2F56;
+            --blue: #1F6FB2;
+            --blue-soft: #EAF3FB;
+            --kraft: #B78345;
+            --green: #2F855A;
+            --bg: #F4F7FA;
+            --card: #FFFFFF;
+            --border: #D8E2EC;
+            --text: #111827;
+            --muted: #4B5563;
         }
 
         html, body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            background: var(--ip-bg);
+            background: var(--bg);
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         .stApp {
-            background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%);
-            color: var(--ip-text);
+            background: var(--bg);
+            color: var(--text);
         }
 
         .block-container {
-            max-width: 1380px;
-            padding-top: 1.4rem;
+            max-width: 1360px;
+            padding-top: 1.5rem;
             padding-bottom: 3rem;
-            animation: fadeSlideUp 0.35s ease-out;
         }
 
         /* Sidebar */
         section[data-testid="stSidebar"] {
-            background: linear-gradient(180deg, #102A43 0%, #123B66 100%);
-            border-right: 1px solid rgba(255, 255, 255, 0.12);
+            background: var(--navy);
         }
 
         section[data-testid="stSidebar"] h1,
         section[data-testid="stSidebar"] h2,
         section[data-testid="stSidebar"] h3,
         section[data-testid="stSidebar"] p,
-        section[data-testid="stSidebar"] span,
         section[data-testid="stSidebar"] label {
             color: #FFFFFF !important;
         }
 
         section[data-testid="stSidebar"] div[role="radiogroup"] label {
             background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            border-radius: 12px;
-            padding: 9px 11px;
-            margin-bottom: 7px;
-            transition: background 0.2s ease, transform 0.2s ease;
+            border-radius: 10px;
+            padding: 8px 10px;
+            margin-bottom: 6px;
         }
 
         section[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
             background: rgba(255, 255, 255, 0.18);
-            transform: translateX(2px);
         }
 
         /* Hero */
         .hero {
             background: #FFFFFF;
-            border: 1px solid var(--ip-border);
-            border-radius: 20px;
-            padding: 30px 34px;
+            border: 1px solid var(--border);
+            border-left: 7px solid var(--blue);
+            border-radius: 18px;
+            padding: 28px 32px;
             margin-bottom: 24px;
-            box-shadow: 0 10px 30px rgba(16, 42, 67, 0.08);
-            border-left: 8px solid var(--ip-blue);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::after {
-            content: "";
-            position: absolute;
-            right: -80px;
-            top: -80px;
-            width: 240px;
-            height: 240px;
-            border-radius: 50%;
-            background: rgba(183, 120, 56, 0.13);
+            box-shadow: 0 8px 24px rgba(15, 47, 86, 0.08);
         }
 
         .hero h1 {
-            color: var(--ip-navy) !important;
-            font-size: 40px;
-            line-height: 1.08;
+            color: var(--navy) !important;
+            font-size: 38px;
             font-weight: 800;
-            letter-spacing: -0.7px;
+            line-height: 1.1;
             margin: 8px 0 10px 0;
         }
 
         .hero p {
-            color: #526173;
+            color: var(--muted) !important;
             font-size: 16px;
-            line-height: 1.6;
-            max-width: 1050px;
+            line-height: 1.55;
             margin: 0;
+            max-width: 1050px;
         }
 
         .badge {
             display: inline-block;
-            padding: 6px 12px;
+            background: var(--blue-soft);
+            color: var(--blue);
+            border: 1px solid #C8DBEC;
             border-radius: 999px;
-            background: var(--ip-blue-soft);
-            color: var(--ip-blue);
-            border: 1px solid #C9DCEB;
-            font-weight: 800;
+            padding: 6px 12px;
             font-size: 12px;
+            font-weight: 800;
             margin-right: 8px;
             margin-bottom: 10px;
-            letter-spacing: 0.25px;
         }
 
         .badge-kraft {
-            background: #F7EBDD;
+            background: #F7EADD;
             color: #7A4A1D;
-            border: 1px solid #E7C8A3;
+            border: 1px solid #E6C9A5;
         }
 
-        /* Main headings only */
+        /* Section headings */
         h1, h2, h3, h4 {
-            color: var(--ip-navy) !important;
+            color: var(--navy) !important;
             font-weight: 800 !important;
         }
 
         /* Cards */
         .glass-card {
-            background: var(--ip-card);
-            border: 1px solid var(--ip-border);
-            border-radius: 18px;
-            padding: 22px;
-            box-shadow: 0 8px 24px rgba(16, 42, 67, 0.07);
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 6px 18px rgba(15, 47, 86, 0.07);
         }
 
-        /* Metrics */
+        /* Metric cards - critical fix */
         div[data-testid="metric-container"] {
-            background: #FFFFFF;
-            border: 1px solid var(--ip-border);
-            border-radius: 16px;
-            padding: 17px;
-            box-shadow: 0 6px 18px rgba(16, 42, 67, 0.06);
+            background: #FFFFFF !important;
+            border: 1px solid var(--border) !important;
+            border-radius: 14px !important;
+            padding: 16px !important;
+            box-shadow: 0 6px 18px rgba(15, 47, 86, 0.07) !important;
         }
 
         div[data-testid="metric-container"] label {
-            color: var(--ip-muted) !important;
+            color: #374151 !important;
             font-weight: 700 !important;
         }
 
         div[data-testid="metric-container"] [data-testid="stMetricValue"] {
-            color: var(--ip-navy) !important;
-            font-weight: 800 !important;
+            color: #0F2F56 !important;
+            font-weight: 900 !important;
+            opacity: 1 !important;
+        }
+
+        div[data-testid="metric-container"] [data-testid="stMetricDelta"] {
+            color: #0F2F56 !important;
+            opacity: 1 !important;
         }
 
         /* Inputs */
         div[data-testid="stTextInput"] input,
         div[data-testid="stNumberInput"] input,
         div[data-testid="stDateInput"] input {
-            color: var(--ip-text) !important;
             background-color: #FFFFFF !important;
-            border: 1px solid #C8D5E2 !important;
+            color: #111827 !important;
+            border: 1px solid #CBD5E1 !important;
             border-radius: 10px !important;
             min-height: 42px !important;
         }
 
-        /* Select boxes - safer styling */
+        /* Select boxes */
         div[data-baseweb="select"] {
-            min-width: 100% !important;
+            width: 100% !important;
         }
 
         div[data-baseweb="select"] > div {
             background-color: #FFFFFF !important;
-            border: 1px solid #C8D5E2 !important;
+            color: #111827 !important;
+            border: 1px solid #CBD5E1 !important;
             border-radius: 10px !important;
             min-height: 42px !important;
-            color: var(--ip-text) !important;
-        }
-
-        div[data-baseweb="select"] span {
-            color: var(--ip-text) !important;
         }
 
         div[data-baseweb="select"] svg {
-            fill: var(--ip-navy) !important;
-            color: var(--ip-navy) !important;
+            color: #0F2F56 !important;
+            fill: #0F2F56 !important;
             opacity: 1 !important;
         }
 
-        label {
-            color: #334155 !important;
+        /* Labels outside sidebar */
+        div[data-testid="stVerticalBlock"] label {
+            color: #374151 !important;
             font-weight: 700 !important;
         }
 
         /* Buttons */
         .stButton > button,
         .stDownloadButton > button {
-            background: var(--ip-blue) !important;
+            background: var(--blue) !important;
             color: #FFFFFF !important;
-            border: 1px solid var(--ip-blue) !important;
-            border-radius: 11px !important;
+            border: 1px solid var(--blue) !important;
+            border-radius: 10px !important;
             font-weight: 800 !important;
             min-height: 42px !important;
-            box-shadow: 0 6px 16px rgba(29, 95, 153, 0.20);
-            transition: transform 0.15s ease, background 0.15s ease;
         }
 
         .stButton > button:hover,
         .stDownloadButton > button:hover {
-            background: var(--ip-navy) !important;
-            border-color: var(--ip-navy) !important;
-            transform: translateY(-1px);
+            background: var(--navy) !important;
+            border-color: var(--navy) !important;
         }
 
         /* Dataframes */
         div[data-testid="stDataFrame"] {
-            border: 1px solid var(--ip-border);
-            border-radius: 14px;
-            overflow: hidden;
-            background: #FFFFFF;
+            background: #FFFFFF !important;
+            border: 1px solid var(--border) !important;
+            border-radius: 12px !important;
+            overflow: hidden !important;
         }
 
-        /* Alerts */
         .warning-box {
             padding: 16px 18px;
             border-radius: 14px;
@@ -278,20 +245,19 @@ def inject_css() -> None:
         }
 
         .footer {
-            color: #64748B;
+            color: #4B5563;
             font-size: 13px;
             padding-top: 30px;
             text-align: center;
         }
 
         hr {
-            border-color: var(--ip-border);
+            border-color: var(--border);
         }
         </style>
         """,
         unsafe_allow_html=True,
     )
-
 
 def hero() -> None:
     st.markdown(
