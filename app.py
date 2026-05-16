@@ -202,6 +202,146 @@ def result_chart(result: dict, product: str) -> None:
 
     st.plotly_chart(fig, use_container_width=True)
 
+def validation_page() -> None:
+    st.subheader("✅ Validation Center")
+
+    st.markdown(
+        """
+        This page compares the Streamlit calculation results against benchmark
+        values extracted from the original Excel calculator.
+        """
+    )
+
+    st.markdown("### Edge Protector benchmark")
+
+    edge_input = EdgeProtectorInput(
+        side_1_mm=25.0,
+        side_2_mm=150.0,
+        thickness_mm=1.8,
+        length_mm=500.0,
+        product_type="IPP-30",
+        outer_cover="Testliner Grey",
+        quantity_pcs=33000,
+        quantity_per_pallet=1000,
+        transport_cost_pln=0.0,
+        margin_percent=0.0,
+    )
+
+    edge_result = calculate_edge_protector(edge_input)
+
+    edge_benchmarks = [
+        {
+            "Metric": "Weight kg/r.m.",
+            "Excel Benchmark": 0.235290752,
+            "App Result": edge_result.weight_kg_per_rm,
+        },
+        {
+            "Metric": "Price per r.m.",
+            "Excel Benchmark": 0.05778908933942856,
+            "App Result": edge_result.price_per_rm_pln,
+        },
+        {
+            "Metric": "Price per piece",
+            "Excel Benchmark": 0.02889454466971428,
+            "App Result": edge_result.price_per_piece_pln,
+        },
+        {
+            "Metric": "Three-point bending N",
+            "Excel Benchmark": 301.5770911471299,
+            "App Result": edge_result.three_point_bending_n,
+        },
+    ]
+
+    edge_df = pd.DataFrame(edge_benchmarks)
+
+    edge_df["Difference"] = (
+        edge_df["App Result"] - edge_df["Excel Benchmark"]
+    )
+
+    edge_df["Difference %"] = (
+        edge_df["Difference"] / edge_df["Excel Benchmark"] * 100
+    )
+
+    edge_df["Status"] = edge_df["Difference %"].abs().apply(
+        lambda value: "PASS" if value <= 0.5 else "REVIEW"
+    )
+
+    st.dataframe(
+        edge_df,
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    st.markdown("### Tube / Core benchmark")
+
+    tube_input = TubeInput(
+        diameter_mm=76.8,
+        thickness_mm=5.8,
+        length_mm=525.0,
+        product_type="IPP-30",
+        inner_cover="nie",
+        outer_cover="Testliner Grey",
+        quantity_pcs=27324,
+        quantity_per_pallet=37,
+        transport_cost_pln=0.0,
+        margin_percent=0.0,
+    )
+
+    tube_result = calculate_tube(tube_input)
+
+    tube_benchmarks = [
+        {
+            "Metric": "Weight kg/r.m.",
+            "Excel Benchmark": 1.1144761904761904,
+            "App Result": tube_result.weight_kg_per_rm,
+        },
+        {
+            "Metric": "Price per r.m.",
+            "Excel Benchmark": 0.2380301683113101,
+            "App Result": tube_result.price_per_rm_pln,
+        },
+        {
+            "Metric": "Price per piece",
+            "Excel Benchmark": 0.12496583836343782,
+            "App Result": tube_result.price_per_piece_pln,
+        },
+        {
+            "Metric": "Flat crush N/0.1m",
+            "Excel Benchmark": 655.236437504587,
+            "App Result": tube_result.flat_crush_n_per_0_1m,
+        },
+    ]
+
+    tube_df = pd.DataFrame(tube_benchmarks)
+
+    tube_df["Difference"] = (
+        tube_df["App Result"] - tube_df["Excel Benchmark"]
+    )
+
+    tube_df["Difference %"] = (
+        tube_df["Difference"] / tube_df["Excel Benchmark"] * 100
+    )
+
+    tube_df["Status"] = tube_df["Difference %"].abs().apply(
+        lambda value: "PASS" if value <= 0.5 else "REVIEW"
+    )
+
+    st.dataframe(
+        tube_df,
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    st.markdown(
+        """
+        <div class='warning-box'>
+            PASS means the app result is within ±0.5% of the Excel benchmark.
+            REVIEW means the formula should be checked or recalibrated.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
 
 def dashboard_page() -> None:
     st.subheader("🚀 Command Center")
