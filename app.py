@@ -355,6 +355,58 @@ def inject_css() -> None:
             border-color: rgba(220, 240, 160, 0.45) !important;
             box-shadow: 0 10px 24px rgba(39, 96, 59, 0.30);
         }
+        /* Sidebar polish: compact logo, cleaner nav, less scrolling */
+        section[data-testid="stSidebar"] img {
+            max-height: 78px !important;
+            width: auto !important;
+            object-fit: contain !important;
+            margin: 0 auto 8px auto !important;
+            display: block !important;
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] {
+            gap: 7px !important;
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label {
+            min-height: 44px !important;
+            padding: 9px 12px !important;
+            border-radius: 14px !important;
+            background: rgba(255, 255, 255, 0.09) !important;
+            border: 1px solid rgba(255, 255, 255, 0.14) !important;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.10) !important;
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
+            background: rgba(255, 255, 255, 0.18) !important;
+            border-color: rgba(255, 255, 255, 0.28) !important;
+            transform: translateX(2px);
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label span {
+            font-size: 15px !important;
+            font-weight: 800 !important;
+            color: #FFFFFF !important;
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] input {
+            display: none !important;
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child {
+            display: none !important;
+        }
+
+        section[data-testid="stSidebar"] h1 {
+            font-size: 24px !important;
+            line-height: 1.15 !important;
+            margin-bottom: 4px !important;
+        }
+
+        section[data-testid="stSidebar"] hr {
+            margin-top: 18px !important;
+            margin-bottom: 14px !important;
+        }
         </style>
         """,
         unsafe_allow_html=True,
