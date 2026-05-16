@@ -654,6 +654,82 @@ def quote_builder_page() -> None:
             "Tube / Core Quote",
         )
 
+    st.divider()
+
+    st.markdown("### Quote summary")
+
+    summary_df = pd.DataFrame(
+        [
+            {
+                "Field": "Customer",
+                "Value": customer_name,
+            },
+            {
+                "Field": "Salesperson",
+                "Value": salesperson,
+            },
+            {
+                "Field": "Payment terms",
+                "Value": f"{payment_days} days",
+            },
+            {
+                "Field": "Selected product",
+                "Value": product,
+            },
+            {
+                "Field": "Quantity",
+                "Value": quote_input.quantity_pcs,
+            },
+            {
+                "Field": "Price per running meter, PLN",
+                "Value": quote_result_dict["price_per_rm_pln"],
+            },
+            {
+                "Field": "Price per piece, PLN",
+                "Value": quote_result_dict["price_per_piece_pln"],
+            },
+            {
+                "Field": "Total value, PLN",
+                "Value": quote_result_dict["total_value_pln"],
+            },
+            {
+                "Field": "Net weight, kg",
+                "Value": quote_result_dict["net_weight_kg"],
+            },
+            {
+                "Field": "Pallets",
+                "Value": quote_result_dict["pallets"],
+            },
+        ]
+    )
+
+    st.dataframe(
+        summary_df,
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    export_df = make_quote_dataframe(
+        product=product,
+        inputs={
+            "customer_name": customer_name,
+            "salesperson": salesperson,
+            "payment_days": payment_days,
+            **asdict(quote_input),
+        },
+        result=quote_result_dict,
+    )
+
+    csv = export_df.to_csv(index=False).encode("utf-8")
+
+    st.download_button(
+        label="⬇️ Download quote CSV",
+        data=csv,
+        file_name="quote_builder_export.csv",
+        mime="text/csv",
+        use_container_width=True,
+    )
+
     preview_df = pd.DataFrame(
         [
             {
