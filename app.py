@@ -923,23 +923,25 @@ def main() -> None:
         st.title("Pricing Engine")
 
         page = st.radio(
-    "Navigation",
-    [
-        "Dashboard",
-        "Edge Protector",
-        "Tubes / Cores",
-        "Quote Builder",
-        "Materials",
-        "Formula Audit",
-        "Validation",
-    ],
-    label_visibility="collapsed",
-)
+            "Navigation",
+            [
+                "Dashboard",
+                "Edge Protector",
+                "Tubes / Cores",
+                "Quote Builder",
+                "Materials",
+                "Formula Audit",
+                "Validation",
+            ],
+            label_visibility="collapsed",
+        )
 
         st.divider()
-
         st.caption("Built for GitHub + Streamlit deployment")
         st.caption("Version: 0.1.0 MVP")
+
+    # Debug line: this helps confirm which page Streamlit selected
+    st.caption(f"Current page: {page}")
 
     if page == "Dashboard":
         dashboard_page()
@@ -947,12 +949,16 @@ def main() -> None:
         edge_page()
     elif page == "Tubes / Cores":
         tube_page()
+    elif page == "Quote Builder":
+        quote_builder_page()
     elif page == "Materials":
         materials_page()
     elif page == "Formula Audit":
         formula_audit_page()
     elif page == "Validation":
         validation_page()
+    else:
+        st.error(f"Unknown page selected: {page}")
 
     st.markdown(
         """
