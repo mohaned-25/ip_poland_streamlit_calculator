@@ -28,7 +28,7 @@ def inject_css() -> None:
     st.markdown(
         """
         <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
         html, body, [class*="css"] {
             font-family: 'Inter', sans-serif;
@@ -36,87 +36,162 @@ def inject_css() -> None:
 
         .stApp {
             background:
-                radial-gradient(circle at 10% 20%, rgba(0,229,255,.18), transparent 28%),
-                radial-gradient(circle at 90% 15%, rgba(168,85,247,.20), transparent 28%),
-                radial-gradient(circle at 50% 90%, rgba(34,197,94,.12), transparent 30%),
-                linear-gradient(135deg, #050816 0%, #0B1020 45%, #111827 100%);
+                linear-gradient(180deg, #F8FAFC 0%, #EEF4FB 45%, #FFFFFF 100%);
+            color: #0F172A;
+        }
+
+        section[data-testid="stSidebar"] {
+            background: linear-gradient(180deg, #003B79 0%, #0057B8 100%);
+            border-right: 1px solid rgba(15, 23, 42, 0.08);
+        }
+
+        section[data-testid="stSidebar"] * {
+            color: #FFFFFF !important;
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 8px 10px;
+            margin-bottom: 6px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
+            background: rgba(255, 255, 255, 0.18);
         }
 
         .hero {
-            padding: 34px;
-            border: 1px solid rgba(148,163,184,.22);
-            border-radius: 28px;
-            background: linear-gradient(135deg, rgba(15,23,42,.94), rgba(30,41,59,.66));
-            box-shadow: 0 24px 80px rgba(0,0,0,.38);
+            padding: 34px 36px;
+            border: 1px solid #D9E6F2;
+            border-radius: 24px;
+            background:
+                linear-gradient(135deg, #FFFFFF 0%, #F1F7FF 100%);
+            box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
             margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            right: -80px;
+            top: -80px;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: rgba(0, 87, 184, 0.10);
         }
 
         .hero h1 {
-            font-size: 46px;
-            line-height: 1.05;
-            font-weight: 900;
-            letter-spacing: -1.4px;
-            margin: 0;
-            background: linear-gradient(90deg, #FFFFFF, #67E8F9, #A78BFA);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 44px;
+            line-height: 1.06;
+            font-weight: 800;
+            letter-spacing: -1.2px;
+            margin: 8px 0 10px 0;
+            color: #003B79;
         }
 
         .hero p {
-            color: #CBD5E1;
+            color: #475569;
             font-size: 17px;
             max-width: 1050px;
+            margin-bottom: 0;
         }
 
         .badge {
             display: inline-block;
-            padding: 7px 12px;
+            padding: 7px 13px;
             border-radius: 999px;
-            background: rgba(0,229,255,.12);
-            color: #67E8F9;
-            border: 1px solid rgba(103,232,249,.25);
+            background: #E7F1FF;
+            color: #0057B8;
+            border: 1px solid #C8DDF5;
             font-weight: 700;
+            font-size: 12px;
             margin-right: 8px;
             margin-bottom: 12px;
+            letter-spacing: 0.3px;
         }
 
         .glass-card {
-            padding: 20px;
-            border-radius: 22px;
-            background: rgba(15,23,42,.74);
-            border: 1px solid rgba(148,163,184,.18);
-            box-shadow: 0 14px 50px rgba(0,0,0,.25);
+            padding: 22px;
+            border-radius: 20px;
+            background: #FFFFFF;
+            border: 1px solid #D9E6F2;
+            box-shadow: 0 12px 34px rgba(15, 23, 42, 0.07);
         }
 
         div[data-testid="metric-container"] {
-            background: linear-gradient(145deg, rgba(15,23,42,.88), rgba(30,41,59,.62));
-            border: 1px solid rgba(148,163,184,.18);
+            background: #FFFFFF;
+            border: 1px solid #D9E6F2;
             padding: 18px;
-            border-radius: 20px;
-            box-shadow: 0 14px 40px rgba(0,0,0,.25);
+            border-radius: 18px;
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.07);
         }
 
         div[data-testid="metric-container"] label {
-            color: #94A3B8 !important;
+            color: #64748B !important;
+            font-weight: 600;
         }
 
         div[data-testid="metric-container"] [data-testid="stMetricValue"] {
-            color: #F8FAFC;
-            font-weight: 900;
+            color: #003B79;
+            font-weight: 800;
         }
 
         .warning-box {
             padding: 16px 18px;
-            border-radius: 18px;
-            background: rgba(251,191,36,.10);
-            border: 1px solid rgba(251,191,36,.32);
-            color: #FDE68A;
+            border-radius: 16px;
+            background: #FFF8E6;
+            border: 1px solid #F4D38A;
+            color: #7A4E00;
+        }
+
+        .success-box {
+            padding: 16px 18px;
+            border-radius: 16px;
+            background: #ECFDF5;
+            border: 1px solid #A7F3D0;
+            color: #065F46;
         }
 
         .footer {
-            color: #94A3B8;
+            color: #64748B;
             font-size: 13px;
             padding-top: 30px;
+            text-align: center;
+        }
+
+        .stButton > button,
+        .stDownloadButton > button {
+            background: #0057B8 !important;
+            color: #FFFFFF !important;
+            border: 1px solid #0057B8 !important;
+            border-radius: 12px !important;
+            font-weight: 700 !important;
+            padding: 0.65rem 1rem !important;
+            box-shadow: 0 8px 20px rgba(0, 87, 184, 0.20);
+        }
+
+        .stButton > button:hover,
+        .stDownloadButton > button:hover {
+            background: #003B79 !important;
+            border-color: #003B79 !important;
+        }
+
+        div[data-baseweb="select"] > div {
+            border-radius: 12px;
+            border-color: #C8DDF5;
+        }
+
+        input {
+            border-radius: 12px !important;
+        }
+
+        .block-container {
+            padding-top: 2rem;
+            padding-bottom: 3rem;
         }
         </style>
         """,
