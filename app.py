@@ -307,6 +307,54 @@ def inject_css() -> None:
         hr {
             border-color: var(--ip-border);
         }
+        /* Premium sidebar navigation buttons */
+        section[data-testid="stSidebar"] div[role="radiogroup"] {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border: 1px solid rgba(255, 255, 255, 0.14) !important;
+            border-radius: 14px !important;
+            padding: 12px 14px !important;
+            min-height: 48px !important;
+            display: flex !important;
+            align-items: center !important;
+            transition: all 0.18s ease-in-out !important;
+            cursor: pointer !important;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.10);
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
+            background: rgba(255, 255, 255, 0.18) !important;
+            transform: translateX(3px);
+            border-color: rgba(255, 255, 255, 0.30) !important;
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label span {
+            color: #FFFFFF !important;
+            font-size: 16px !important;
+            font-weight: 800 !important;
+            letter-spacing: -0.2px;
+        }
+
+        /* Hide default radio circles */
+        section[data-testid="stSidebar"] div[role="radiogroup"] input {
+            display: none !important;
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child {
+            display: none !important;
+        }
+
+        /* Selected item highlight */
+        section[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
+            background: linear-gradient(135deg, #27603B 0%, #3C7A4D 100%) !important;
+            border-color: rgba(220, 240, 160, 0.45) !important;
+            box-shadow: 0 10px 24px rgba(39, 96, 59, 0.30);
+        }
         </style>
         """,
         unsafe_allow_html=True,
