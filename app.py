@@ -356,37 +356,24 @@ def quote_builder_page() -> None:
 
     customer_col, sales_col, payment_col = st.columns(3)
 
-customer_name = customer_col.text_input(
-    "Customer name",
-    value="",
-    placeholder="Enter customer name",
-)
+    customer_name = customer_col.text_input(
+        "Customer name",
+        value="",
+        placeholder="Enter customer name",
+    )
 
-salesperson = sales_col.text_input(
-    "Salesperson",
-    value="",
-    placeholder="Enter salesperson",
-)
+    salesperson = sales_col.text_input(
+        "Salesperson",
+        value="",
+        placeholder="Enter salesperson",
+    )
 
-payment_days = payment_col.number_input(
-    "Payment terms, days",
-    min_value=0,
-    value=10,
-    step=1,
-)
-
-quote_meta_1, quote_meta_2 = st.columns(2)
-
-quote_id = quote_meta_1.text_input(
-    "Quote ID",
-    value="Q-2025-001",
-    placeholder="Example: Q-2025-001",
-)
-
-quote_date = quote_meta_2.date_input(
-    "Quote date",
-)
-    
+    payment_days = payment_col.number_input(
+        "Payment terms, days",
+        min_value=0,
+        value=10,
+        step=1,
+    )
 
     st.divider()
 
