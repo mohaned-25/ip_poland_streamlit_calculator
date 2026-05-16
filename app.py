@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import asdict
 from io import BytesIO
+from hmac import compare_digest
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
@@ -411,6 +412,67 @@ def inject_css() -> None:
         """,
         unsafe_allow_html=True,
     )
+
+def require_login() -> None:
+    if "authenticated" not in st.session_state:
+        st.session_state.authenticated = False
+
+    if st.session_state.authenticated:
+        return
+
+    st.set_page_config(
+        page_title="Inter-Pack Pricing Engine Login",
+        page_icon="🔐",
+        layout="centered",
+    )
+
+    st.markdown(
+        """
+        <div style="
+            max-width: 520px;
+            margin: 70px auto 20px auto;
+            padding: 34px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #17120D 0%, #241C15 100%);
+            color: white;
+            box-shadow: 0 24px 70px rgba(23,18,13,0.28);
+            text-align: center;
+        ">
+            <img 
+                src="https://inter-pack.com.pl/wp-content/uploads/2021/10/logo-lightpng.png"
+                style="max-width: 260px; margin-bottom: 22px;"
+            />
+            <h1 style="margin: 0; font-size: 30px; color: white;">
+                Pricing Engine
+            </h1>
+            <p style="color: rgba(255,255,255,0.70); margin-top: 10px;">
+                Secure access for authorized users
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    with st.form("login_form"):
+        username = st.text_input("Username")
+        password = st.text_input("Password", type="password")
+        submitted = st.form_submit_button("Login", use_container_width=True)
+
+    if submitted:
+        expected_username = st.secrets.get("APP_USERNAME", "")
+        expected_password = st.secrets.get("APP_PASSWORD", "")
+
+        username_ok = compare_digest(username, expected_username)
+        password_ok = compare_digest(password, expected_password)
+
+        if username_ok and password_ok:
+            st.session_state.authenticated = True
+            st.rerun()
+        else:
+            st.error("Invalid username or password.")
+
+    st.stop()
+    
 def interpack_brand_header() -> None:
     components.html(
         """
@@ -2533,6 +2595,7 @@ def formula_audit_page() -> None:
 
 
 def main() -> None:
+    require_login()
     inject_css()
     interpack_brand_header()
     hero()
@@ -2542,6 +2605,10 @@ def main() -> None:
             "https://inter-pack.com.pl/wp-content/uploads/2021/10/logo-lightpng.png",
             use_container_width=True,
         )
+
+        if st.button("🔓 Logout", use_container_width=True):
+            st.session_state.authenticated = False
+            st.rerun()
 
         st.markdown(
             """
