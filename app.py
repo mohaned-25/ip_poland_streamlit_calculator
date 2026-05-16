@@ -731,7 +731,9 @@ def quote_builder_page() -> None:
 
     export_df = make_quote_dataframe(
         product=product,
-        inputs={
+        inputs={        
+            "quote_id": quote_id,
+            "quote_date": str(quote_date),
             "customer_name": customer_name,
             "salesperson": salesperson,
             "payment_days": payment_days,
