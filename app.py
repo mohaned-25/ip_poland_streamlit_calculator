@@ -2438,40 +2438,29 @@ def main() -> None:
     hero()
 
     with st.sidebar:
+        st.image(
+            "https://inter-pack.com.pl/wp-content/uploads/2021/10/logo-lightpng.png",
+            use_container_width=True,
+        )
+
         st.markdown(
             """
-            <div style="
-                padding: 18px 14px 16px 14px;
-                border-radius: 22px;
-                background: linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
-                border: 1px solid rgba(255,255,255,0.14);
-                margin-bottom: 22px;
-                box-shadow: 0 12px 30px rgba(0,0,0,0.18);
-            ">
-                <div style="display:flex; justify-content:center; margin-bottom:14px;">
-                    <img 
-                        src="https://inter-pack.com.pl/wp-content/uploads/2021/10/logo-lightpng.png"
-                        style="max-width:185px; height:auto;"
-                    />
-                </div>
-
+            <div style="padding: 10px 0 18px 0;">
                 <div style="
-                    text-align:center;
-                    color:#FFFFFF;
-                    font-size:22px;
-                    font-weight:900;
-                    line-height:1.15;
-                    margin-bottom:6px;
+                    color: white;
+                    font-size: 26px;
+                    font-weight: 900;
+                    line-height: 1.15;
+                    margin-top: 8px;
                 ">
                     Pricing Engine
                 </div>
-
                 <div style="
-                    text-align:center;
-                    color:rgba(255,255,255,0.70);
-                    font-size:12px;
-                    font-weight:600;
-                    line-height:1.45;
+                    color: rgba(255,255,255,0.70);
+                    font-size: 13px;
+                    font-weight: 600;
+                    margin-top: 6px;
+                    line-height: 1.4;
                 ">
                     Industrial packaging calculator
                 </div>
@@ -2481,13 +2470,13 @@ def main() -> None:
         )
 
         page_labels = {
-            "🏠  Dashboard": "Dashboard",
-            "🧱  Edge Protector": "Edge Protector",
-            "🌀  Tubes / Cores": "Tubes / Cores",
-            "🧾  Quote Builder": "Quote Builder",
-            "📦  Materials": "Materials",
-            "🧬  Formula Audit": "Formula Audit",
-            "✅  Validation": "Validation",
+            "🏠 Dashboard": "Dashboard",
+            "🧱 Edge Protector": "Edge Protector",
+            "🌀 Tubes / Cores": "Tubes / Cores",
+            "🧾 Quote Builder": "Quote Builder",
+            "📦 Materials": "Materials",
+            "🧬 Formula Audit": "Formula Audit",
+            "✅ Validation": "Validation",
         }
 
         selected_page_label = st.radio(
@@ -2498,49 +2487,27 @@ def main() -> None:
 
         page = page_labels[selected_page_label]
 
+        st.divider()
+
         st.markdown(
             """
             <div style="
-                margin-top: 28px;
-                padding-top: 18px;
-                border-top: 1px solid rgba(255,255,255,0.16);
+                color: rgba(255,255,255,0.65);
+                font-size: 12px;
+                font-weight: 700;
+                line-height: 1.5;
+                margin-top: 16px;
             ">
+                <div style="margin-bottom: 8px;">Deployment</div>
                 <div style="
-                    color:rgba(255,255,255,0.62);
-                    font-size:12px;
-                    font-weight:700;
-                    line-height:1.5;
-                    margin-bottom:10px;
+                    color: white;
+                    font-size: 13px;
+                    font-weight: 800;
+                    margin-bottom: 6px;
                 ">
-                    Deployment
+                    🟢 Streamlit Cloud
                 </div>
-
-                <div style="
-                    display:flex;
-                    align-items:center;
-                    gap:8px;
-                    color:#FFFFFF;
-                    font-size:13px;
-                    font-weight:800;
-                    margin-bottom:8px;
-                ">
-                    <span style="
-                        width:8px;
-                        height:8px;
-                        background:#53D17C;
-                        border-radius:999px;
-                        display:inline-block;
-                        box-shadow:0 0 0 5px rgba(83,209,124,0.13);
-                    "></span>
-                    Streamlit Cloud
-                </div>
-
-                <div style="
-                    color:rgba(255,255,255,0.56);
-                    font-size:12px;
-                    font-weight:600;
-                    line-height:1.5;
-                ">
+                <div>
                     Built for GitHub deployment<br/>
                     Version 0.1.0 MVP
                 </div>
@@ -2548,9 +2515,6 @@ def main() -> None:
             """,
             unsafe_allow_html=True,
         )
-
-    # Debug line: this helps confirm which page Streamlit selected
-    st.caption(f"Current page: {page}")
 
     if page == "Dashboard":
         dashboard_page()
