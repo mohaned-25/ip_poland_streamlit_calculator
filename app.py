@@ -386,6 +386,7 @@ def quote_builder_page() -> None:
     quote_date = quote_meta_2.date_input(
         "Quote date",
     )
+    quote_date_text = quote_date.strftime("%Y-%m-%d")
 
     st.divider()
 
