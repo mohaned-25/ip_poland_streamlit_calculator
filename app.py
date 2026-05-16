@@ -192,14 +192,53 @@ def create_quote_excel_file(
 
         worksheet = writer.sheets["Quote"]
 
-        worksheet.column_dimensions["A"].width = 18
-        worksheet.column_dimensions["B"].width = 30
-        worksheet.column_dimensions["C"].width = 40
+        header_fill = PatternFill(
+            fill_type="solid",
+            fgColor="0F172A",
+        )
+
+        header_font = Font(
+            color="FFFFFF",
+            bold=True,
+        )
+
+        body_alignment = Alignment(
+            vertical="top",
+            wrap_text=True,
+        )
+
+        for cell in worksheet[1]:
+            cell.fill = header_fill
+            cell.font = header_font
+            cell.alignment = Alignment(
+                horizontal="center",
+                vertical="center",
+            )
+
+        for row in worksheet.iter_rows(
+            min_row=2,
+            max_row=worksheet.max_row,
+            min_col=1,
+            max_col=worksheet.max_column,
+        ):
+            for cell in row:
+                cell.alignment = body_alignment
+
+        column_widths = {
+            "A": 18,
+            "B": 32,
+            "C": 42,
+        }
+
+        for column_letter, width in column_widths.items():
+            worksheet.column_dimensions[column_letter].width = width
+
+        worksheet.freeze_panes = "A2"
+        worksheet.auto_filter.ref = worksheet.dimensions
 
     output.seek(0)
 
     return output.getvalue()
-
 
 def result_chart(result: dict, product: str) -> None:
     fig = go.Figure()
