@@ -345,16 +345,80 @@ def validation_page() -> None:
 def quote_builder_page() -> None:
     st.subheader("🧾 Quote Builder")
 
-    st.success("Quote Builder page is working.")
+    st.markdown(
+        """
+        Build a quick customer quote from the available calculator modules.
+        This page will be expanded step by step into a full quotation tool.
+        """
+    )
 
-    st.write(
-        "This is a temporary test version. "
-        "If this message appears, the sidebar route and function connection are correct."
+    st.markdown("### Customer and commercial information")
+
+    customer_col, sales_col, payment_col = st.columns(3)
+
+    customer_name = customer_col.text_input(
+        "Customer name",
+        value="",
+        placeholder="Enter customer name",
+    )
+
+    salesperson = sales_col.text_input(
+        "Salesperson",
+        value="",
+        placeholder="Enter salesperson",
+    )
+
+    payment_days = payment_col.number_input(
+        "Payment terms, days",
+        min_value=0,
+        value=10,
+        step=1,
+    )
+
+    st.divider()
+
+    st.markdown("### Product selection")
+
+    product = st.selectbox(
+        "Select product type",
+        [
+            "Edge Protector",
+            "Tube / Core",
+        ],
     )
 
     st.info(
-        "Next, we will add the customer fields, product selector, calculation summary, "
-        "and CSV export step by step."
+        "Customer fields and product selector are working. "
+        "Next step: we will add the Edge Protector quote input form."
+    )
+
+    preview_df = pd.DataFrame(
+        [
+            {
+                "Field": "Customer",
+                "Value": customer_name,
+            },
+            {
+                "Field": "Salesperson",
+                "Value": salesperson,
+            },
+            {
+                "Field": "Payment terms",
+                "Value": f"{payment_days} days",
+            },
+            {
+                "Field": "Selected product",
+                "Value": product,
+            },
+        ]
+    )
+
+    st.markdown("### Quote setup preview")
+
+    st.dataframe(
+        preview_df,
+        use_container_width=True,
+        hide_index=True,
     )
 def dashboard_page() -> None:
     st.subheader("🚀 Command Center")
