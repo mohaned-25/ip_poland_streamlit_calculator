@@ -375,6 +375,18 @@ def quote_builder_page() -> None:
         step=1,
     )
 
+    quote_meta_1, quote_meta_2 = st.columns(2)
+
+    quote_id = quote_meta_1.text_input(
+        "Quote ID",
+        value="Q-2025-001",
+        placeholder="Example: Q-2025-001",
+    )
+
+    quote_date = quote_meta_2.date_input(
+        "Quote date",
+    )
+
     st.divider()
 
     st.markdown("### Product selection")
