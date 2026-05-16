@@ -1609,25 +1609,92 @@ def formula_audit_page() -> None:
         go.Bar(
             x=chart_df["sheet"],
             y=chart_df["formulas"],
-            marker=dict(color="#00E5FF"),
-            text=chart_df["formulas"],
+            marker=dict(
+                color="#1F6FB2",
+                line=dict(
+                    color="#FFFFFF",
+                    width=1.5,
+                ),
+            ),
+            text=[
+                f"{value:,.0f}"
+                for value in chart_df["formulas"]
+            ],
             textposition="outside",
+            textfont=dict(
+                color="#172033",
+                size=13,
+                family="Arial",
+            ),
+            hovertemplate="<b>%{x}</b><br>Formula cells: %{y:,.0f}<extra></extra>",
         )
     )
 
     fig.update_layout(
-        title="Formula count by workbook sheet",
-        xaxis_title="Sheet",
+        title=dict(
+            text="Formula count by workbook sheet",
+            font=dict(
+                size=20,
+                color="#12335B",
+                family="Arial",
+            ),
+            x=0.02,
+            xanchor="left",
+        ),
+        xaxis_title=None,
         yaxis_title="Formula cells",
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(color="#E5E7EB"),
-        height=430,
-        margin=dict(l=20, r=20, t=60, b=120),
-        xaxis_tickangle=-35,
+        paper_bgcolor="#FFFFFF",
+        plot_bgcolor="#FFFFFF",
+        font=dict(
+            color="#172033",
+            family="Arial",
+            size=13,
+        ),
+        height=460,
+        margin=dict(
+            l=50,
+            r=30,
+            t=70,
+            b=130,
+        ),
+        bargap=0.32,
+        showlegend=False,
+        yaxis=dict(
+            title=dict(
+                text="Formula cells",
+                font=dict(
+                    color="#5E6B7A",
+                    size=13,
+                ),
+            ),
+            gridcolor="#E3EAF2",
+            zerolinecolor="#C9D6E3",
+            tickfont=dict(
+                color="#344256",
+                size=12,
+            ),
+        ),
+        xaxis=dict(
+            tickangle=-35,
+            tickfont=dict(
+                color="#344256",
+                size=12,
+            ),
+        ),
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    fig.update_traces(
+        cliponaxis=False,
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True,
+        config={
+            "displayModeBar": False,
+            "responsive": True,
+        },
+    )
 
     st.markdown("### Migration interpretation")
 
