@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict
+from io import BytesIO
 
 import pandas as pd
 import plotly.graph_objects as go
@@ -163,6 +164,50 @@ def download_quote(product: str, inputs: dict, result: dict) -> None:
         use_container_width=True,
     )
 
+def create_quote_excel_file(
+    product: str,
+    inputs: dict,
+    result: dict,
+) -> bytes:
+    quote_df = make_quote_dataframe(
+        product=product,
+        inputs=inputs,
+        result=result,
+    )
+
+    output = BytesIO()
+
+    with pd.ExcelWriter(
+        output,
+        engine="openpyxl",
+    ) as writer:
+        quote_df.to_excel(
+            writer,
+            index=False,
+            sheet_name="Quote",
+        )
+
+        worksheet = writer.sheets["Quote"]
+
+        worksheet.column_dimensions["A"].width = 18
+        worksheet.column_dimensions["B"].width = 30
+        worksheet.column_dimensions["C"].width = 36
+
+        for cell in worksheet[1]:
+            cell.style = "Headline 3"
+
+        for row in worksheet.iter_rows(
+            min_row=2,
+            max_row=worksheet.max_row,
+            min_col=1,
+            max_col=3,
+        ):
+            for cell in row:
+                cell.alignment = cell.alignment.copy(wrap_text=True)
+
+    output.seek(0)
+
+    return output.getvalue()
 
 def result_chart(result: dict, product: str) -> None:
     fig = go.Figure()
