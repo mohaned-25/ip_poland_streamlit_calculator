@@ -358,34 +358,44 @@ def dashboard_page() -> None:
     st.markdown("### Migration status")
 
     status = pd.DataFrame(
-        [
-            {
-                "Module": "Edge Protectors",
-                "Status": "MVP formula engine ready",
-                "Priority": "High",
-            },
-            {
-                "Module": "Tubes / Cores",
-                "Status": "MVP formula engine ready",
-                "Priority": "High",
-            },
-            {
-                "Module": "Paper database",
-                "Status": "JSON database ready",
-                "Priority": "High",
-            },
-            {
-                "Module": "Cardboard Pallets",
-                "Status": "Next implementation",
-                "Priority": "Medium",
-            },
-            {
-                "Module": "HoneyComb",
-                "Status": "Formula audit ready; full engine pending",
-                "Priority": "Medium",
-            },
-        ]
-    )
+    [
+        {
+            "Module": "Edge Protectors",
+            "Status": "MVP formula engine ready",
+            "Priority": "High",
+        },
+        {
+            "Module": "Tubes / Cores",
+            "Status": "MVP formula engine ready",
+            "Priority": "High",
+        },
+        {
+            "Module": "Paper database",
+            "Status": "JSON database ready",
+            "Priority": "High",
+        },
+        {
+            "Module": "Formula Audit",
+            "Status": "Workbook formula distribution loaded",
+            "Priority": "High",
+        },
+        {
+            "Module": "Validation Center",
+            "Status": "Excel benchmark comparison ready",
+            "Priority": "High",
+        },
+        {
+            "Module": "Cardboard Pallets",
+            "Status": "Next implementation",
+            "Priority": "Medium",
+        },
+        {
+            "Module": "HoneyComb",
+            "Status": "High-complexity module planned later",
+            "Priority": "Medium",
+        },
+    ]
+)
 
     st.dataframe(status, use_container_width=True, hide_index=True)
 
