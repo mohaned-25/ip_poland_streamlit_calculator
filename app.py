@@ -803,17 +803,26 @@ def quote_builder_page() -> None:
 
         r1.metric(
             "Price / r.m.",
-            money(quote_result.price_per_rm_pln),
+            money_in_currency(
+                quote_result.price_per_rm_pln,
+                selected_currency,
+            ),
         )
 
         r2.metric(
             "Price / piece",
-            money(quote_result.price_per_piece_pln),
+            money_in_currency(
+                quote_result.price_per_piece_pln,
+                selected_currency,
+            ),
         )
 
         r3.metric(
             "Total value",
-            money(quote_result.total_value_pln),
+            money_in_currency(
+                quote_result.total_value_pln,
+                selected_currency,
+            ),
         )
 
         r4.metric(
