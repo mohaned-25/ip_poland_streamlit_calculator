@@ -946,9 +946,7 @@ def main() -> None:
     elif page == "Edge Protector":
         edge_page()
     elif page == "Tubes / Cores":
-        tube_page()  
-    elif page == "Quote Builder":
-    quote_builder_page()
+        tube_page()
     elif page == "Materials":
         materials_page()
     elif page == "Formula Audit":
