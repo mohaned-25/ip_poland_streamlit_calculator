@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from dataclasses import asdict
 from io import BytesIO
+from openpyxl.styles import Alignment, Font, PatternFill
+from openpyxl.utils import get_column_letter
+
 
 import pandas as pd
 import plotly.graph_objects as go
