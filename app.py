@@ -28,164 +28,182 @@ def inject_css() -> None:
     st.markdown(
         """
         <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        :root {
+            --brand-navy: #12335B;
+            --brand-blue: #1F6FB2;
+            --brand-blue-light: #EAF3FB;
+            --brand-kraft: #C99A5B;
+            --brand-green: #2F855A;
+            --page-bg: #F5F7FA;
+            --card-bg: #FFFFFF;
+            --border: #DDE5EE;
+            --text-main: #172033;
+            --text-muted: #5E6B7A;
+        }
 
-        html, body, [class*="css"] {
-            font-family: 'Inter', sans-serif;
+        html, body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: var(--page-bg);
         }
 
         .stApp {
-            background: #F4F6F8;
-            color: #102033;
+            background: var(--page-bg);
+            color: var(--text-main);
         }
 
         .block-container {
+            max-width: 1360px;
             padding-top: 1.5rem;
             padding-bottom: 3rem;
-            max-width: 1380px;
         }
 
+        /* Sidebar */
         section[data-testid="stSidebar"] {
-            background: #0B2F5B;
-            border-right: 1px solid rgba(255, 255, 255, 0.12);
-        }
-
-        section[data-testid="stSidebar"] * {
-            color: #FFFFFF !important;
+            background: var(--brand-navy);
+            border-right: 1px solid rgba(255,255,255,0.12);
         }
 
         section[data-testid="stSidebar"] h1,
         section[data-testid="stSidebar"] h2,
-        section[data-testid="stSidebar"] h3 {
+        section[data-testid="stSidebar"] h3,
+        section[data-testid="stSidebar"] p,
+        section[data-testid="stSidebar"] span,
+        section[data-testid="stSidebar"] label {
             color: #FFFFFF !important;
-            font-weight: 800;
         }
 
         section[data-testid="stSidebar"] div[role="radiogroup"] label {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.10);
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.10);
             border-radius: 10px;
             padding: 8px 10px;
-            margin-bottom: 7px;
-            transition: all 0.15s ease-in-out;
+            margin-bottom: 6px;
         }
 
         section[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
-            background: rgba(255, 255, 255, 0.18);
-            border-color: rgba(255, 255, 255, 0.28);
+            background: rgba(255,255,255,0.18);
+            border-color: rgba(255,255,255,0.30);
         }
 
+        /* Main titles */
+        h1, h2, h3, h4 {
+            color: var(--brand-navy) !important;
+            font-weight: 800 !important;
+        }
+
+        p {
+            color: var(--text-main);
+        }
+
+        /* Hero */
         .hero {
-            padding: 30px 34px;
-            border-radius: 20px;
-            background:
-                linear-gradient(135deg, #FFFFFF 0%, #F7FAFD 55%, #EEF4FA 100%);
-            border: 1px solid #D8E1EA;
-            box-shadow: 0 12px 34px rgba(16, 32, 51, 0.08);
-            margin-bottom: 22px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 8px;
-            height: 100%;
-            background: #0B5CAD;
-        }
-
-        .hero::after {
-            content: "";
-            position: absolute;
-            right: -70px;
-            top: -90px;
-            width: 260px;
-            height: 260px;
-            border-radius: 50%;
-            background: rgba(184, 138, 76, 0.12);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-left: 8px solid var(--brand-blue);
+            border-radius: 18px;
+            padding: 28px 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 24px rgba(18, 51, 91, 0.08);
         }
 
         .hero h1 {
-            font-size: 40px;
-            line-height: 1.08;
-            font-weight: 800;
-            letter-spacing: -0.9px;
+            font-size: 38px;
+            line-height: 1.1;
             margin: 8px 0 10px 0;
-            color: #0B2F5B;
+            color: var(--brand-navy) !important;
+            letter-spacing: -0.6px;
         }
 
         .hero p {
-            color: #405166;
+            color: var(--text-muted);
             font-size: 16px;
             line-height: 1.6;
             max-width: 1050px;
-            margin-bottom: 0;
+            margin: 0;
         }
 
         .badge {
             display: inline-block;
-            padding: 7px 12px;
+            padding: 6px 12px;
             border-radius: 999px;
-            background: #EAF2FA;
-            color: #0B5CAD;
-            border: 1px solid #C9DAEA;
+            background: var(--brand-blue-light);
+            color: var(--brand-blue);
+            border: 1px solid #C7DAED;
             font-weight: 800;
             font-size: 12px;
             margin-right: 8px;
             margin-bottom: 10px;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.2px;
         }
 
         .badge-kraft {
-            background: #F5E9D7;
+            background: #F8EFE2;
             color: #7A4F1E;
-            border: 1px solid #E5C99E;
+            border: 1px solid #E9D2AC;
         }
 
+        /* Cards */
         .glass-card {
-            padding: 22px;
-            border-radius: 18px;
-            background: #FFFFFF;
-            border: 1px solid #D8E1EA;
-            box-shadow: 0 10px 28px rgba(16, 32, 51, 0.07);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 22px rgba(18, 51, 91, 0.07);
         }
 
+        /* Metrics */
         div[data-testid="metric-container"] {
-            background: #FFFFFF;
-            border: 1px solid #D8E1EA;
-            padding: 17px;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(16, 32, 51, 0.07);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0 6px 18px rgba(18, 51, 91, 0.06);
         }
 
         div[data-testid="metric-container"] label {
-            color: #5F6F83 !important;
+            color: var(--text-muted) !important;
             font-weight: 700;
         }
 
         div[data-testid="metric-container"] [data-testid="stMetricValue"] {
-            color: #0B2F5B !important;
-            font-weight: 800;
+            color: var(--brand-navy) !important;
+            font-weight: 800 !important;
         }
 
-        h1, h2, h3, h4 {
-            color: #0B2F5B;
-            font-weight: 800;
+        /* Inputs */
+        input,
+        textarea {
+            background: #FFFFFF !important;
+            color: var(--text-main) !important;
+            border-radius: 10px !important;
+            border-color: #CBD7E3 !important;
         }
 
-        p, span, label, div {
-            color: inherit;
+        div[data-baseweb="select"] > div {
+            background: #FFFFFF !important;
+            color: var(--text-main) !important;
+            border-radius: 10px !important;
+            border-color: #CBD7E3 !important;
         }
 
-        .stMarkdown,
-        .stText,
-        .stCaption {
-            color: #26384D;
+        /* Buttons */
+        .stButton > button,
+        .stDownloadButton > button {
+            background: var(--brand-blue) !important;
+            color: #FFFFFF !important;
+            border: 1px solid var(--brand-blue) !important;
+            border-radius: 10px !important;
+            font-weight: 800 !important;
+            box-shadow: 0 6px 16px rgba(31, 111, 178, 0.20);
         }
 
+        .stButton > button:hover,
+        .stDownloadButton > button:hover {
+            background: var(--brand-navy) !important;
+            border-color: var(--brand-navy) !important;
+        }
+
+        /* Alerts */
         .warning-box {
             padding: 16px 18px;
             border-radius: 14px;
@@ -197,57 +215,29 @@ def inject_css() -> None:
         .success-box {
             padding: 16px 18px;
             border-radius: 14px;
-            background: #EEF8F1;
-            border: 1px solid #A9D8B3;
+            background: #EDF9F1;
+            border: 1px solid #B7E0C2;
             color: #14532D;
         }
 
+        /* Dataframes */
+        div[data-testid="stDataFrame"] {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: #FFFFFF;
+        }
+
+        /* Captions and footer */
         .footer {
-            color: #65758A;
+            color: var(--text-muted);
             font-size: 13px;
             padding-top: 30px;
             text-align: center;
         }
 
-        .stButton > button,
-        .stDownloadButton > button {
-            background: #0B5CAD !important;
-            color: #FFFFFF !important;
-            border: 1px solid #0B5CAD !important;
-            border-radius: 10px !important;
-            font-weight: 800 !important;
-            padding: 0.65rem 1rem !important;
-            box-shadow: 0 6px 16px rgba(11, 92, 173, 0.20);
-        }
-
-        .stButton > button:hover,
-        .stDownloadButton > button:hover {
-            background: #0B2F5B !important;
-            border-color: #0B2F5B !important;
-        }
-
-        div[data-baseweb="select"] > div {
-            border-radius: 10px !important;
-            border-color: #C8D5E2 !important;
-            background-color: #FFFFFF !important;
-        }
-
-        input,
-        textarea {
-            border-radius: 10px !important;
-            border-color: #C8D5E2 !important;
-            background-color: #FFFFFF !important;
-            color: #102033 !important;
-        }
-
-        div[data-testid="stDataFrame"] {
-            border-radius: 14px;
-            overflow: hidden;
-            border: 1px solid #D8E1EA;
-        }
-
         hr {
-            border-color: #D8E1EA;
+            border-color: var(--border);
         }
         </style>
         """,
