@@ -917,16 +917,6 @@ def main() -> None:
         st.caption("Built for GitHub + Streamlit deployment")
         st.caption("Version: 0.1.0 MVP")
 
-    if page == "Dashboard":
-        dashboard_page()
-    elif page == "Edge Protector":
-        edge_page()
-    elif page == "Tubes / Cores":
-        tube_page()
-    elif page == "Materials":
-        materials_page()
-    elif page == "Formula Audit":
-        formula_audit_page()
         if page == "Dashboard":
     dashboard_page()
 elif page == "Edge Protector":
