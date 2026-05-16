@@ -420,12 +420,6 @@ def require_login() -> None:
     if st.session_state.authenticated:
         return
 
-    st.set_page_config(
-        page_title="Inter-Pack Pricing Engine Login",
-        page_icon="🔐",
-        layout="centered",
-    )
-
     st.markdown(
         """
         <div style="
@@ -440,7 +434,7 @@ def require_login() -> None:
         ">
             <img 
                 src="https://inter-pack.com.pl/wp-content/uploads/2021/10/logo-lightpng.png"
-                style="max-width: 260px; margin-bottom: 22px;"
+                style="max-width: 240px; margin-bottom: 24px;"
             />
             <h1 style="margin: 0; font-size: 30px; color: white;">
                 Pricing Engine
