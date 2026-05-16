@@ -9,6 +9,7 @@ from openpyxl.utils import get_column_letter
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
+import streamlit.components.v1 as components
 
 from core.data_loader import load_formula_catalog, load_materials, paper_options
 from core.exporter import make_quote_dataframe
@@ -311,421 +312,512 @@ def inject_css() -> None:
         unsafe_allow_html=True,
     )
 def interpack_brand_header() -> None:
-    st.markdown(
+    components.html(
         """
-        <style>
-        @keyframes ipFadeUp {
-            0% {
-                opacity: 0;
-                transform: translateY(16px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        <div class="ip-shell">
+            <style>
+                :root {
+                    --ip-black: #17120D;
+                    --ip-dark: #241C15;
+                    --ip-green: #27603B;
+                    --ip-green-light: #DCF0A0;
+                    --ip-card: rgba(255, 255, 255, 0.08);
+                    --ip-border: rgba(255, 255, 255, 0.14);
+                    --ip-text-soft: rgba(255, 255, 255, 0.68);
+                    --ip-text-muted: rgba(255, 255, 255, 0.50);
+                }
 
-        @keyframes ipFloat {
-            0% {
-                transform: translateY(0px) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-8px) rotate(1deg);
-            }
-            100% {
-                transform: translateY(0px) rotate(0deg);
-            }
-        }
+                @keyframes ipFadeUp {
+                    0% {
+                        opacity: 0;
+                        transform: translateY(18px);
+                    }
+                    100% {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
 
-        @keyframes ipGlow {
-            0% {
-                box-shadow: 0 0 0 rgba(201, 154, 91, 0.0);
-            }
-            50% {
-                box-shadow: 0 0 34px rgba(201, 154, 91, 0.18);
-            }
-            100% {
-                box-shadow: 0 0 0 rgba(201, 154, 91, 0.0);
-            }
-        }
+                @keyframes ipFloatOne {
+                    0% {
+                        transform: translate3d(0, 0, 0) rotate(0deg);
+                    }
+                    50% {
+                        transform: translate3d(-12px, 10px, 0) rotate(4deg);
+                    }
+                    100% {
+                        transform: translate3d(0, 0, 0) rotate(0deg);
+                    }
+                }
 
-        .ip-brand-shell {
-            position: relative;
-            overflow: hidden;
-            border-radius: 28px;
-            margin-bottom: 24px;
-            padding: 0;
-            background:
-                radial-gradient(circle at 12% 18%, rgba(201,154,91,0.18), transparent 28%),
-                radial-gradient(circle at 92% 14%, rgba(39,96,59,0.22), transparent 26%),
-                linear-gradient(135deg, #17120D 0%, #241C15 45%, #0F1411 100%);
-            border: 1px solid rgba(255,255,255,0.10);
-            box-shadow: 0 24px 70px rgba(23, 18, 13, 0.28);
-            animation: ipFadeUp 0.45s ease-out;
-        }
+                @keyframes ipFloatTwo {
+                    0% {
+                        transform: translate3d(0, 0, 0) scale(1);
+                    }
+                    50% {
+                        transform: translate3d(12px, -12px, 0) scale(1.04);
+                    }
+                    100% {
+                        transform: translate3d(0, 0, 0) scale(1);
+                    }
+                }
 
-        .ip-brand-shell::before {
-            content: "";
-            position: absolute;
-            width: 380px;
-            height: 380px;
-            right: -180px;
-            top: -180px;
-            border-radius: 50%;
-            background: rgba(201,154,91,0.16);
-            animation: ipFloat 7s ease-in-out infinite;
-        }
+                @keyframes ipPulse {
+                    0% {
+                        box-shadow: 0 0 0 0 rgba(220, 240, 160, 0.18);
+                    }
+                    70% {
+                        box-shadow: 0 0 0 14px rgba(220, 240, 160, 0);
+                    }
+                    100% {
+                        box-shadow: 0 0 0 0 rgba(220, 240, 160, 0);
+                    }
+                }
 
-        .ip-brand-shell::after {
-            content: "";
-            position: absolute;
-            width: 260px;
-            height: 260px;
-            left: -120px;
-            bottom: -140px;
-            border-radius: 50%;
-            background: rgba(39,96,59,0.22);
-            animation: ipFloat 8s ease-in-out infinite;
-        }
+                * {
+                    box-sizing: border-box;
+                }
 
-        .ip-brand-inner {
-            position: relative;
-            z-index: 2;
-            padding: 30px 34px 28px 34px;
-        }
+                body {
+                    margin: 0;
+                    padding: 0;
+                }
 
-        .ip-brand-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 24px;
-            flex-wrap: wrap;
-            margin-bottom: 28px;
-        }
+                .ip-shell {
+                    width: 100%;
+                    min-height: 560px;
+                    position: relative;
+                    overflow: hidden;
+                    border-radius: 32px;
+                    padding: 34px;
+                    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+                    background:
+                        radial-gradient(circle at 8% 10%, rgba(220, 240, 160, 0.14), transparent 26%),
+                        radial-gradient(circle at 92% 10%, rgba(39, 96, 59, 0.34), transparent 30%),
+                        radial-gradient(circle at 50% 120%, rgba(220, 240, 160, 0.10), transparent 36%),
+                        linear-gradient(135deg, #17120D 0%, #241C15 46%, #0E1511 100%);
+                    color: #FFFFFF;
+                    border: 1px solid rgba(255, 255, 255, 0.12);
+                    box-shadow: 0 26px 90px rgba(23, 18, 13, 0.34);
+                    animation: ipFadeUp 0.5s ease-out;
+                }
 
-        .ip-brand-logo-wrap {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
+                .ip-orb-one {
+                    position: absolute;
+                    width: 420px;
+                    height: 420px;
+                    right: -180px;
+                    top: -200px;
+                    border-radius: 50%;
+                    background: rgba(220, 240, 160, 0.13);
+                    animation: ipFloatOne 8s ease-in-out infinite;
+                }
 
-        .ip-brand-logo-box {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 18px;
-            padding: 14px 18px;
-            min-width: 245px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: ipGlow 5s ease-in-out infinite;
-        }
+                .ip-orb-two {
+                    position: absolute;
+                    width: 320px;
+                    height: 320px;
+                    left: -150px;
+                    bottom: -150px;
+                    border-radius: 50%;
+                    background: rgba(39, 96, 59, 0.28);
+                    animation: ipFloatTwo 9s ease-in-out infinite;
+                }
 
-        .ip-brand-logo-box img {
-            height: 42px;
-            max-width: 225px;
-            object-fit: contain;
-            display: block;
-        }
+                .ip-grid-lines {
+                    position: absolute;
+                    inset: 0;
+                    opacity: 0.08;
+                    background-image:
+                        linear-gradient(rgba(255,255,255,0.18) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.18) 1px, transparent 1px);
+                    background-size: 44px 44px;
+                    mask-image: linear-gradient(180deg, rgba(0,0,0,0.85), transparent);
+                }
 
-        .ip-brand-divider {
-            width: 1px;
-            height: 46px;
-            background: rgba(255,255,255,0.18);
-        }
+                .ip-content {
+                    position: relative;
+                    z-index: 3;
+                }
 
-        .ip-brand-kicker {
-            color: rgba(255,255,255,0.72);
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 1.8px;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
+                .ip-topbar {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 24px;
+                    flex-wrap: wrap;
+                    margin-bottom: 34px;
+                }
 
-        .ip-brand-title-small {
-            color: #FFFFFF;
-            font-size: 16px;
-            font-weight: 800;
-            letter-spacing: 0.2px;
-        }
+                .ip-logo-zone {
+                    display: flex;
+                    align-items: center;
+                    gap: 18px;
+                    flex-wrap: wrap;
+                }
 
-        .ip-brand-actions {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
+                .ip-logo-card {
+                    height: 72px;
+                    min-width: 270px;
+                    padding: 14px 20px;
+                    border-radius: 20px;
+                    background: rgba(255,255,255,0.07);
+                    border: 1px solid rgba(255,255,255,0.15);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    backdrop-filter: blur(10px);
+                }
 
-        .ip-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            padding: 8px 12px;
-            border-radius: 999px;
-            color: #FFFFFF;
-            font-size: 12px;
-            font-weight: 800;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.13);
-            backdrop-filter: blur(8px);
-        }
+                .ip-logo-card img {
+                    height: 42px;
+                    max-width: 230px;
+                    object-fit: contain;
+                    display: block;
+                }
 
-        .ip-pill-kraft {
-            background: rgba(201,154,91,0.20);
-            border-color: rgba(201,154,91,0.36);
-            color: #FFE5BF;
-        }
+                .ip-vertical-line {
+                    width: 1px;
+                    height: 54px;
+                    background: rgba(255,255,255,0.18);
+                }
 
-        .ip-pill-green {
-            background: rgba(39,96,59,0.36);
-            border-color: rgba(85,160,108,0.42);
-            color: #DFF7E6;
-        }
+                .ip-top-copy {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+                }
 
-        .ip-brand-main {
-            display: grid;
-            grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.75fr);
-            gap: 28px;
-            align-items: stretch;
-        }
+                .ip-kicker {
+                    font-size: 12px;
+                    line-height: 1.2;
+                    text-transform: uppercase;
+                    letter-spacing: 1.8px;
+                    font-weight: 900;
+                    color: rgba(255,255,255,0.58);
+                }
 
-        .ip-brand-copy {
-            min-width: 0;
-        }
+                .ip-top-title {
+                    font-size: 17px;
+                    line-height: 1.25;
+                    color: #FFFFFF;
+                    font-weight: 900;
+                }
 
-        .ip-brand-eyebrow {
-            display: inline-block;
-            color: #D9B27B;
-            font-weight: 900;
-            font-size: 13px;
-            letter-spacing: 1.4px;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-        }
+                .ip-status-zone {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    flex-wrap: wrap;
+                    justify-content: flex-end;
+                }
 
-        .ip-brand-heading {
-            color: #FFFFFF;
-            font-size: clamp(34px, 4vw, 58px);
-            line-height: 1.02;
-            font-weight: 900;
-            letter-spacing: -1.7px;
-            margin: 0 0 16px 0;
-            max-width: 850px;
-        }
+                .ip-status-pill {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 10px 13px;
+                    border-radius: 999px;
+                    background: rgba(255,255,255,0.08);
+                    border: 1px solid rgba(255,255,255,0.14);
+                    color: #FFFFFF;
+                    font-size: 12px;
+                    font-weight: 900;
+                    white-space: nowrap;
+                    backdrop-filter: blur(8px);
+                }
 
-        .ip-brand-heading span {
-            color: #D9B27B;
-        }
+                .ip-status-pill.green {
+                    background: rgba(39,96,59,0.34);
+                    border-color: rgba(111,190,132,0.35);
+                    color: #E9FBEF;
+                }
 
-        .ip-brand-description {
-            color: rgba(255,255,255,0.74);
-            font-size: 16px;
-            line-height: 1.75;
-            max-width: 900px;
-            margin: 0 0 22px 0;
-        }
+                .ip-status-dot {
+                    width: 9px;
+                    height: 9px;
+                    border-radius: 50%;
+                    background: #6BE58D;
+                    animation: ipPulse 2.2s infinite;
+                }
 
-        .ip-brand-products {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 9px;
-            margin-top: 18px;
-        }
+                .ip-main {
+                    display: grid;
+                    grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.8fr);
+                    gap: 34px;
+                    align-items: stretch;
+                }
 
-        .ip-product-chip {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(255,255,255,0.12);
-            color: rgba(255,255,255,0.86);
-            border-radius: 12px;
-            padding: 9px 11px;
-            font-size: 13px;
-            font-weight: 800;
-        }
+                .ip-hero-copy {
+                    min-width: 0;
+                    padding-top: 6px;
+                }
 
-        .ip-brand-panel {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 22px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-            min-height: 100%;
-        }
+                .ip-eyebrow {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    color: var(--ip-green-light);
+                    font-size: 13px;
+                    line-height: 1.2;
+                    font-weight: 900;
+                    letter-spacing: 1.5px;
+                    text-transform: uppercase;
+                    margin-bottom: 14px;
+                }
 
-        .ip-panel-title {
-            color: #FFFFFF;
-            font-size: 15px;
-            font-weight: 900;
-            margin-bottom: 14px;
-            letter-spacing: 0.2px;
-        }
+                .ip-eyebrow-mark {
+                    width: 28px;
+                    height: 2px;
+                    background: var(--ip-green-light);
+                    border-radius: 999px;
+                }
 
-        .ip-feature-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
+                .ip-heading {
+                    margin: 0 0 18px 0;
+                    max-width: 900px;
+                    color: #FFFFFF;
+                    font-size: clamp(38px, 5vw, 68px);
+                    line-height: 0.98;
+                    font-weight: 950;
+                    letter-spacing: -2px;
+                }
 
-        .ip-feature-card {
-            display: grid;
-            grid-template-columns: 38px 1fr;
-            gap: 12px;
-            align-items: start;
-            padding: 13px;
-            border-radius: 16px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.10);
-        }
+                .ip-heading span {
+                    color: var(--ip-green-light);
+                }
 
-        .ip-feature-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(201,154,91,0.18);
-            color: #FFE5BF;
-            font-size: 18px;
-        }
+                .ip-description {
+                    max-width: 890px;
+                    margin: 0;
+                    color: var(--ip-text-soft);
+                    font-size: 16px;
+                    line-height: 1.78;
+                    font-weight: 500;
+                }
 
-        .ip-feature-title {
-            color: #FFFFFF;
-            font-size: 13px;
-            font-weight: 900;
-            margin-bottom: 3px;
-        }
+                .ip-product-cloud {
+                    margin-top: 24px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                }
 
-        .ip-feature-text {
-            color: rgba(255,255,255,0.66);
-            font-size: 12px;
-            line-height: 1.45;
-        }
+                .ip-chip {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 10px 12px;
+                    border-radius: 14px;
+                    background: rgba(255,255,255,0.08);
+                    border: 1px solid rgba(255,255,255,0.12);
+                    color: rgba(255,255,255,0.90);
+                    font-size: 13px;
+                    font-weight: 900;
+                    white-space: nowrap;
+                }
 
-        .ip-brand-bottom {
-            margin-top: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            flex-wrap: wrap;
-            padding-top: 18px;
-            border-top: 1px solid rgba(255,255,255,0.11);
-        }
+                .ip-chip.highlight {
+                    background: rgba(220,240,160,0.13);
+                    border-color: rgba(220,240,160,0.28);
+                    color: #F3FFD2;
+                }
 
-        .ip-brand-note {
-            color: rgba(255,255,255,0.58);
-            font-size: 12px;
-            line-height: 1.5;
-        }
+                .ip-side-panel {
+                    background: rgba(255,255,255,0.075);
+                    border: 1px solid rgba(255,255,255,0.13);
+                    border-radius: 26px;
+                    padding: 22px;
+                    backdrop-filter: blur(12px);
+                    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+                }
 
-        .ip-brand-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: #DFF7E6;
-            background: rgba(39,96,59,0.26);
-            border: 1px solid rgba(85,160,108,0.35);
-            border-radius: 999px;
-            padding: 9px 12px;
-            font-size: 12px;
-            font-weight: 900;
-        }
+                .ip-panel-title {
+                    color: #FFFFFF;
+                    font-size: 16px;
+                    line-height: 1.25;
+                    font-weight: 950;
+                    margin-bottom: 16px;
+                }
 
-        .ip-status-dot {
-            width: 9px;
-            height: 9px;
-            background: #53D17C;
-            border-radius: 50%;
-            box-shadow: 0 0 0 5px rgba(83,209,124,0.12);
-        }
+                .ip-panel-subtitle {
+                    color: rgba(255,255,255,0.56);
+                    font-size: 12px;
+                    line-height: 1.5;
+                    margin-bottom: 18px;
+                }
 
-        @media (max-width: 980px) {
-            .ip-brand-main {
-                grid-template-columns: 1fr;
-            }
+                .ip-feature-list {
+                    display: grid;
+                    gap: 12px;
+                }
 
-            .ip-brand-top {
-                align-items: flex-start;
-            }
+                .ip-feature {
+                    display: grid;
+                    grid-template-columns: 44px 1fr;
+                    gap: 13px;
+                    align-items: flex-start;
+                    padding: 14px;
+                    border-radius: 18px;
+                    background: rgba(255,255,255,0.08);
+                    border: 1px solid rgba(255,255,255,0.10);
+                }
 
-            .ip-brand-actions {
-                justify-content: flex-start;
-            }
+                .ip-feature-icon {
+                    width: 44px;
+                    height: 44px;
+                    border-radius: 14px;
+                    background: rgba(220,240,160,0.13);
+                    border: 1px solid rgba(220,240,160,0.22);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 20px;
+                }
 
-            .ip-brand-logo-wrap {
-                flex-wrap: wrap;
-            }
+                .ip-feature-title {
+                    color: #FFFFFF;
+                    font-size: 13px;
+                    line-height: 1.25;
+                    font-weight: 950;
+                    margin-bottom: 4px;
+                }
 
-            .ip-brand-divider {
-                display: none;
-            }
-        }
-        </style>
+                .ip-feature-text {
+                    color: rgba(255,255,255,0.62);
+                    font-size: 12px;
+                    line-height: 1.5;
+                    font-weight: 500;
+                }
 
-        <div class="ip-brand-shell">
-            <div class="ip-brand-inner">
-                <div class="ip-brand-top">
-                    <div class="ip-brand-logo-wrap">
-                        <div class="ip-brand-logo-box">
-                            <img 
-                                src="https://inter-pack.com.pl/wp-content/uploads/2021/10/logo-lightpng.png" 
-                                alt="Inter-Pack logo"
-                            />
+                .ip-bottom {
+                    margin-top: 30px;
+                    padding-top: 20px;
+                    border-top: 1px solid rgba(255,255,255,0.12);
+                    display: grid;
+                    grid-template-columns: 1fr auto;
+                    gap: 18px;
+                    align-items: center;
+                }
+
+                .ip-bottom-note {
+                    color: var(--ip-text-muted);
+                    font-size: 12px;
+                    line-height: 1.6;
+                    font-weight: 600;
+                }
+
+                .ip-bottom-actions {
+                    display: flex;
+                    gap: 8px;
+                    flex-wrap: wrap;
+                    justify-content: flex-end;
+                }
+
+                .ip-mini-badge {
+                    padding: 8px 11px;
+                    border-radius: 999px;
+                    background: rgba(255,255,255,0.08);
+                    border: 1px solid rgba(255,255,255,0.12);
+                    color: rgba(255,255,255,0.76);
+                    font-size: 12px;
+                    font-weight: 900;
+                    white-space: nowrap;
+                }
+
+                @media (max-width: 960px) {
+                    .ip-shell {
+                        padding: 24px;
+                        min-height: auto;
+                    }
+
+                    .ip-main {
+                        grid-template-columns: 1fr;
+                    }
+
+                    .ip-vertical-line {
+                        display: none;
+                    }
+
+                    .ip-heading {
+                        font-size: 40px;
+                    }
+
+                    .ip-bottom {
+                        grid-template-columns: 1fr;
+                    }
+
+                    .ip-bottom-actions {
+                        justify-content: flex-start;
+                    }
+
+                    .ip-status-zone {
+                        justify-content: flex-start;
+                    }
+                }
+            </style>
+
+            <div class="ip-orb-one"></div>
+            <div class="ip-orb-two"></div>
+            <div class="ip-grid-lines"></div>
+
+            <div class="ip-content">
+                <div class="ip-topbar">
+                    <div class="ip-logo-zone">
+                        <div class="ip-logo-card">
+                            <img src="https://inter-pack.com.pl/wp-content/uploads/2021/10/logo-lightpng.png" alt="Inter-Pack logo">
                         </div>
 
-                        <div class="ip-brand-divider"></div>
+                        <div class="ip-vertical-line"></div>
 
-                        <div>
-                            <div class="ip-brand-kicker">Internal pricing cockpit</div>
-                            <div class="ip-brand-title-small">
-                                Production-grade calculator for packaging quotations
-                            </div>
+                        <div class="ip-top-copy">
+                            <div class="ip-kicker">Internal pricing cockpit</div>
+                            <div class="ip-top-title">Production-grade calculator for packaging quotations</div>
                         </div>
                     </div>
 
-                    <div class="ip-brand-actions">
-                        <span class="ip-pill">📦 Edge Protectors</span>
-                        <span class="ip-pill">🌀 Tubes & Cores</span>
-                        <span class="ip-pill ip-pill-kraft">🧱 Cardboard</span>
-                        <span class="ip-pill ip-pill-green">🌱 FSC / Quality</span>
+                    <div class="ip-status-zone">
+                        <span class="ip-status-pill">📦 Packaging modules</span>
+                        <span class="ip-status-pill">📊 Quote analytics</span>
+                        <span class="ip-status-pill green"><span class="ip-status-dot"></span> Engine online</span>
                     </div>
                 </div>
 
-                <div class="ip-brand-main">
-                    <div class="ip-brand-copy">
-                        <div class="ip-brand-eyebrow">
-                            Inter‑Pack Polonia · Packaging intelligence
+                <div class="ip-main">
+                    <div class="ip-hero-copy">
+                        <div class="ip-eyebrow">
+                            <span class="ip-eyebrow-mark"></span>
+                            Inter‑Pack Polonia · Packaging Intelligence
                         </div>
 
-                        <h1 class="ip-brand-heading">
+                        <h1 class="ip-heading">
                             Smart pricing for <span>custom cardboard packaging</span>
                         </h1>
 
-                        <p class="ip-brand-description">
-                            A modern quotation and production calculation workspace for edge protectors,
-                            cardboard tubes, cores, material parameters, palletization, validation,
-                            and Excel-to-Python formula migration.
+                        <p class="ip-description">
+                            A modern calculation workspace for edge protectors, cardboard tubes,
+                            cores, material parameters, palletization, validation, quotation exports,
+                            and controlled Excel-to-Python formula migration.
                         </p>
 
-                        <div class="ip-brand-products">
-                            <span class="ip-product-chip">Cores</span>
-                            <span class="ip-product-chip">Edge protectors</span>
-                            <span class="ip-product-chip">Tubes</span>
-                            <span class="ip-product-chip">Paper & cardboard</span>
-                            <span class="ip-product-chip">Cardboard pallet</span>
-                            <span class="ip-product-chip">Production</span>
+                        <div class="ip-product-cloud">
+                            <span class="ip-chip highlight">🧱 Edge protectors</span>
+                            <span class="ip-chip">🌀 Tubes & cores</span>
+                            <span class="ip-chip">📄 Paper & cardboard</span>
+                            <span class="ip-chip">📦 Cardboard pallet</span>
+                            <span class="ip-chip">🏭 Production</span>
+                            <span class="ip-chip">✅ Validation</span>
                         </div>
                     </div>
 
-                    <div class="ip-brand-panel">
-                        <div class="ip-panel-title">
-                            Business-ready calculation modules
+                    <div class="ip-side-panel">
+                        <div class="ip-panel-title">Business-ready calculation suite</div>
+                        <div class="ip-panel-subtitle">
+                            Built for pricing precision, production planning, and quotation workflows.
                         </div>
 
-                        <div class="ip-feature-grid">
-                            <div class="ip-feature-card">
+                        <div class="ip-feature-list">
+                            <div class="ip-feature">
                                 <div class="ip-feature-icon">⚙️</div>
                                 <div>
                                     <div class="ip-feature-title">Formula engine</div>
@@ -735,32 +827,32 @@ def interpack_brand_header() -> None:
                                 </div>
                             </div>
 
-                            <div class="ip-feature-card">
-                                <div class="ip-feature-icon">📊</div>
+                            <div class="ip-feature">
+                                <div class="ip-feature-icon">🧮</div>
                                 <div>
-                                    <div class="ip-feature-title">Quote analytics</div>
+                                    <div class="ip-feature-title">Product calculators</div>
                                     <div class="ip-feature-text">
-                                        Running meter, piece, kilogram, margin, and order value visibility.
+                                        Edge protector and tube/core calculators with commercial outputs.
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="ip-feature-card">
-                                <div class="ip-feature-icon">✅</div>
-                                <div>
-                                    <div class="ip-feature-title">Validation center</div>
-                                    <div class="ip-feature-text">
-                                        Excel benchmark comparison for controlled calculator migration.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="ip-feature-card">
-                                <div class="ip-feature-icon">📄</div>
+                            <div class="ip-feature">
+                                <div class="ip-feature-icon">📤</div>
                                 <div>
                                     <div class="ip-feature-title">Export-ready quotes</div>
                                     <div class="ip-feature-text">
-                                        CSV and styled Excel quotation exports for business workflows.
+                                        CSV and styled Excel exports for customer and internal workflows.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ip-feature">
+                                <div class="ip-feature-icon">🧬</div>
+                                <div>
+                                    <div class="ip-feature-title">Formula audit</div>
+                                    <div class="ip-feature-text">
+                                        Workbook formula distribution and validation roadmap.
                                     </div>
                                 </div>
                             </div>
@@ -768,23 +860,25 @@ def interpack_brand_header() -> None:
                     </div>
                 </div>
 
-                <div class="ip-brand-bottom">
-                    <div class="ip-brand-note">
-                        Built for packaging quotations, production planning, material control,
-                        and transparent commercial calculations.
+                <div class="ip-bottom">
+                    <div class="ip-bottom-note">
+                        Inspired by Inter‑Pack’s packaging product lines: cores, edge protectors,
+                        tubes, paper and cardboard, cardboard pallets, and production workflows.
                     </div>
 
-                    <div class="ip-brand-status">
-                        <span class="ip-status-dot"></span>
-                        Pricing engine online
+                    <div class="ip-bottom-actions">
+                        <span class="ip-mini-badge">FSC-ready</span>
+                        <span class="ip-mini-badge">ISO quality</span>
+                        <span class="ip-mini-badge">EU delivery</span>
                     </div>
                 </div>
             </div>
         </div>
         """,
-        unsafe_allow_html=True,
+        height=650,
+        scrolling=False,
     )
-
+    
 def hero() -> None:
     st.markdown(
         """
