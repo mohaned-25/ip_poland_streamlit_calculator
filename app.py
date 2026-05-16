@@ -2593,7 +2593,6 @@ def formula_audit_page() -> None:
 def main() -> None:
     require_login()
     inject_css()
-    hero()
 
     with st.sidebar:
         st.image(
@@ -2681,16 +2680,22 @@ def main() -> None:
     if page == "Dashboard":
         dashboard_page()
     elif page == "Edge Protector":
+        hero()
         edge_page()
     elif page == "Tubes / Cores":
+        hero()
         tube_page()
     elif page == "Quote Builder":
+        hero()
         quote_builder_page()
     elif page == "Materials":
+        hero()
         materials_page()
     elif page == "Formula Audit":
+        hero()
         formula_audit_page()
     elif page == "Validation":
+        hero()
         validation_page()
     else:
         st.error(f"Unknown page selected: {page}")
