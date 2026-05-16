@@ -786,6 +786,26 @@ def quote_builder_page() -> None:
         mime="text/csv",
         use_container_width=True,
     )
+    excel_bytes = create_quote_excel_file(
+        product=product,
+        inputs={
+            "quote_id": quote_id,
+            "quote_date": quote_date_text,
+            "customer_name": customer_name,
+            "salesperson": salesperson,
+            "payment_days": payment_days,
+            **asdict(quote_input),
+        },
+        result=quote_result_dict,
+    )
+
+    st.download_button(
+        label="⬇️ Download quote Excel",
+        data=excel_bytes,
+        file_name="quote_builder_export.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        use_container_width=True,
+    )
 
     preview_df = pd.DataFrame(
         [
