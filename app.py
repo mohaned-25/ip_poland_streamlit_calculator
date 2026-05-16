@@ -191,23 +191,12 @@ def create_quote_excel_file(
 
         worksheet.column_dimensions["A"].width = 18
         worksheet.column_dimensions["B"].width = 30
-        worksheet.column_dimensions["C"].width = 36
-
-        for cell in worksheet[1]:
-            cell.style = "Headline 3"
-
-        for row in worksheet.iter_rows(
-            min_row=2,
-            max_row=worksheet.max_row,
-            min_col=1,
-            max_col=3,
-        ):
-            for cell in row:
-                cell.alignment = cell.alignment.copy(wrap_text=True)
+        worksheet.column_dimensions["C"].width = 40
 
     output.seek(0)
 
     return output.getvalue()
+
 
 def result_chart(result: dict, product: str) -> None:
     fig = go.Figure()
