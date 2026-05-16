@@ -438,42 +438,115 @@ def create_quote_excel_file(
     return output.getvalue()
     
 def result_chart(result: dict, product: str) -> None:
+    chart_values = [
+        result.get("price_per_rm_pln", 0),
+        result.get("price_per_piece_pln", 0),
+        result.get("price_per_kg_pln", 0),
+    ]
+
+    chart_labels = [
+        "Price / r.m.",
+        "Price / piece",
+        "Price / kg",
+    ]
+
+    chart_colors = [
+        "#1F6FB2",
+        "#C99A5B",
+        "#2F855A",
+    ]
+
     fig = go.Figure()
 
     fig.add_trace(
         go.Bar(
-            x=["Price / r.m.", "Price / piece", "Price / kg"],
-            y=[
-                result.get("price_per_rm_pln", 0),
-                result.get("price_per_piece_pln", 0),
-                result.get("price_per_kg_pln", 0),
-            ],
+            x=chart_labels,
+            y=chart_values,
             marker=dict(
-                color=[
-                    "#00E5FF",
-                    "#A78BFA",
-                    "#22C55E",
-                ]
+                color=chart_colors,
+                line=dict(
+                    color="#FFFFFF",
+                    width=1.5,
+                ),
             ),
             text=[
-                f"{result.get('price_per_rm_pln', 0):.4f}",
-                f"{result.get('price_per_piece_pln', 0):.4f}",
-                f"{result.get('price_per_kg_pln', 0):.4f}",
+                f"{value:,.4f}"
+                for value in chart_values
             ],
             textposition="outside",
+            textfont=dict(
+                color="#172033",
+                size=14,
+                family="Arial",
+            ),
+            hovertemplate="<b>%{x}</b><br>Value: %{y:.4f} PLN<extra></extra>",
         )
     )
 
     fig.update_layout(
-        title=f"{product} price composition",
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(color="#E5E7EB"),
-        height=360,
-        margin=dict(l=20, r=20, t=60, b=30),
+        title=dict(
+            text=f"{product} price composition",
+            font=dict(
+                size=20,
+                color="#12335B",
+                family="Arial",
+            ),
+            x=0.02,
+            xanchor="left",
+        ),
+        paper_bgcolor="#FFFFFF",
+        plot_bgcolor="#FFFFFF",
+        font=dict(
+            color="#172033",
+            family="Arial",
+            size=13,
+        ),
+        height=430,
+        margin=dict(
+            l=40,
+            r=30,
+            t=70,
+            b=60,
+        ),
+        bargap=0.35,
+        showlegend=False,
+        yaxis=dict(
+            title=dict(
+                text="Value in PLN",
+                font=dict(
+                    color="#5E6B7A",
+                    size=13,
+                ),
+            ),
+            gridcolor="#E3EAF2",
+            zerolinecolor="#C9D6E3",
+            tickfont=dict(
+                color="#344256",
+                size=12,
+            ),
+        ),
+        xaxis=dict(
+            tickfont=dict(
+                color="#344256",
+                size=13,
+            ),
+            title=None,
+        ),
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    fig.update_traces(
+        cliponaxis=False,
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True,
+        config={
+            "displayModeBar": False,
+            "responsive": True,
+        },
+    )
+
 
 def validation_page() -> None:
     st.subheader("✅ Validation Center")
