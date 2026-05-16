@@ -627,7 +627,7 @@ def interpack_brand_header() -> None:
                     background: rgba(255,255,255,0.075);
                     border: 1px solid rgba(255,255,255,0.13);
                     border-radius: 26px;
-                    padding: 22px;
+                    padding: 18px;
                     backdrop-filter: blur(12px);
                     box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
                 }
@@ -654,25 +654,25 @@ def interpack_brand_header() -> None:
 
                 .ip-feature {
                     display: grid;
-                    grid-template-columns: 44px 1fr;
-                    gap: 13px;
+                    grid-template-columns: 40px 1fr;
+                    gap: 12px;
                     align-items: flex-start;
-                    padding: 14px;
-                    border-radius: 18px;
+                    padding: 12px;
+                    border-radius: 16px;
                     background: rgba(255,255,255,0.08);
                     border: 1px solid rgba(255,255,255,0.10);
                 }
 
                 .ip-feature-icon {
-                    width: 44px;
-                    height: 44px;
-                    border-radius: 14px;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 13px;
                     background: rgba(220,240,160,0.13);
                     border: 1px solid rgba(220,240,160,0.22);
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    font-size: 20px;
+                    font-size: 18px;
                 }
 
                 .ip-feature-title {
@@ -875,7 +875,7 @@ def interpack_brand_header() -> None:
             </div>
         </div>
         """,
-        height=650,
+        height=820,
         scrolling=False,
     )
     
