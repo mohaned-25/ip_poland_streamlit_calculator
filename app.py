@@ -673,6 +673,14 @@ def quote_builder_page() -> None:
     summary_df = pd.DataFrame(
         [
             {
+                "Field": "Quote ID",
+                "Value": quote_id,
+            },
+            {
+                "Field": "Quote date",
+                "Value": str(quote_date),
+            },
+            {
                 "Field": "Customer",
                 "Value": customer_name,
             },
