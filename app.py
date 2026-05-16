@@ -387,10 +387,145 @@ def quote_builder_page() -> None:
         ],
     )
 
-    st.info(
-        "Customer fields and product selector are working. "
-        "Next step: we will add the Edge Protector quote input form."
-    )
+    if product == "Edge Protector":
+        st.markdown("### Edge Protector quote input")
+
+        papers = paper_options()
+
+        c1, c2, c3 = st.columns(3)
+
+        product_type = c1.selectbox(
+            "Type",
+            papers,
+            index=papers.index("IPP-30") if "IPP-30" in papers else 0,
+            key="quote_edge_type",
+        )
+
+        outer_cover = c2.selectbox(
+            "Outer cover",
+            papers,
+            index=papers.index("Testliner Grey") if "Testliner Grey" in papers else 0,
+            key="quote_edge_outer",
+        )
+
+        quantity = c3.number_input(
+            "Quantity, pcs",
+            min_value=1,
+            value=33000,
+            step=100,
+            key="quote_edge_qty",
+        )
+
+        d1, d2, d3, d4 = st.columns(4)
+
+        side_1 = d1.number_input(
+            "Side 1, mm",
+            min_value=1.0,
+            value=25.0,
+            step=1.0,
+            key="quote_edge_side_1",
+        )
+
+        side_2 = d2.number_input(
+            "Side 2, mm",
+            min_value=1.0,
+            value=150.0,
+            step=1.0,
+            key="quote_edge_side_2",
+        )
+
+        thickness = d3.number_input(
+            "Thickness, mm",
+            min_value=0.1,
+            value=1.8,
+            step=0.1,
+            key="quote_edge_thickness",
+        )
+
+        length = d4.number_input(
+            "Length, mm",
+            min_value=1.0,
+            value=500.0,
+            step=10.0,
+            key="quote_edge_length",
+        )
+
+        commercial_1, commercial_2, commercial_3 = st.columns(3)
+
+        qty_per_pallet = commercial_1.number_input(
+            "Qty per pallet",
+            min_value=1,
+            value=1000,
+            step=10,
+            key="quote_edge_qty_per_pallet",
+        )
+
+        transport = commercial_2.number_input(
+            "Transport, PLN",
+            min_value=0.0,
+            value=0.0,
+            step=50.0,
+            key="quote_edge_transport",
+        )
+
+        margin = commercial_3.number_input(
+            "Margin, %",
+            min_value=-100.0,
+            value=0.0,
+            step=1.0,
+            key="quote_edge_margin",
+        )
+
+        quote_input = EdgeProtectorInput(
+            side_1_mm=side_1,
+            side_2_mm=side_2,
+            thickness_mm=thickness,
+            length_mm=length,
+            product_type=product_type,
+            outer_cover=outer_cover,
+            quantity_pcs=int(quantity),
+            quantity_per_pallet=int(qty_per_pallet),
+            transport_cost_pln=transport,
+            margin_percent=margin,
+        )
+
+        quote_result = calculate_edge_protector(quote_input)
+        quote_result_dict = quote_result.to_dict()
+
+        st.markdown("### Edge Protector quote result")
+
+        r1, r2, r3, r4 = st.columns(4)
+
+        r1.metric(
+            "Price / r.m.",
+            money(quote_result.price_per_rm_pln),
+        )
+
+        r2.metric(
+            "Price / piece",
+            money(quote_result.price_per_piece_pln),
+        )
+
+        r3.metric(
+            "Total value",
+            money(quote_result.total_value_pln),
+        )
+
+        r4.metric(
+            "Net weight",
+            f"{quote_result.net_weight_kg:,.2f} kg",
+        )
+
+        result_chart(
+            quote_result_dict,
+            "Edge Protector Quote",
+        )
+
+    else:
+        st.info(
+            "Tube / Core quote input will be added in the next step. "
+            "For now, select Edge Protector to test the quote calculation."
+        )
 
     preview_df = pd.DataFrame(
         [
