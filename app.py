@@ -679,7 +679,7 @@ def quote_builder_page() -> None:
             },
             {
                 "Field": "Quote date",
-                "Value": str(quote_date),
+                "Value": quote_date_text,
             },
             {
                 "Field": "Customer",
@@ -734,7 +734,7 @@ def quote_builder_page() -> None:
         product=product,
         inputs={        
             "quote_id": quote_id,
-            "quote_date": str(quote_date),
+            "quote_date": quote_date_text,
             "customer_name": customer_name,
             "salesperson": salesperson,
             "payment_days": payment_days,
