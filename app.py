@@ -35,129 +35,175 @@ def inject_css() -> None:
         }
 
         .stApp {
-            background:
-                linear-gradient(180deg, #F8FAFC 0%, #EEF4FB 45%, #FFFFFF 100%);
-            color: #0F172A;
+            background: #F4F6F8;
+            color: #102033;
+        }
+
+        .block-container {
+            padding-top: 1.5rem;
+            padding-bottom: 3rem;
+            max-width: 1380px;
         }
 
         section[data-testid="stSidebar"] {
-            background: linear-gradient(180deg, #003B79 0%, #0057B8 100%);
-            border-right: 1px solid rgba(15, 23, 42, 0.08);
+            background: #0B2F5B;
+            border-right: 1px solid rgba(255, 255, 255, 0.12);
         }
 
         section[data-testid="stSidebar"] * {
             color: #FFFFFF !important;
         }
 
+        section[data-testid="stSidebar"] h1,
+        section[data-testid="stSidebar"] h2,
+        section[data-testid="stSidebar"] h3 {
+            color: #FFFFFF !important;
+            font-weight: 800;
+        }
+
         section[data-testid="stSidebar"] div[role="radiogroup"] label {
             background: rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            border-radius: 10px;
             padding: 8px 10px;
-            margin-bottom: 6px;
-            transition: all 0.2s ease-in-out;
+            margin-bottom: 7px;
+            transition: all 0.15s ease-in-out;
         }
 
         section[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
             background: rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 255, 255, 0.28);
         }
 
         .hero {
-            padding: 34px 36px;
-            border: 1px solid #D9E6F2;
-            border-radius: 24px;
+            padding: 30px 34px;
+            border-radius: 20px;
             background:
-                linear-gradient(135deg, #FFFFFF 0%, #F1F7FF 100%);
-            box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
-            margin-bottom: 24px;
+                linear-gradient(135deg, #FFFFFF 0%, #F7FAFD 55%, #EEF4FA 100%);
+            border: 1px solid #D8E1EA;
+            box-shadow: 0 12px 34px rgba(16, 32, 51, 0.08);
+            margin-bottom: 22px;
             position: relative;
             overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 8px;
+            height: 100%;
+            background: #0B5CAD;
         }
 
         .hero::after {
             content: "";
             position: absolute;
-            right: -80px;
-            top: -80px;
+            right: -70px;
+            top: -90px;
             width: 260px;
             height: 260px;
             border-radius: 50%;
-            background: rgba(0, 87, 184, 0.10);
+            background: rgba(184, 138, 76, 0.12);
         }
 
         .hero h1 {
-            font-size: 44px;
-            line-height: 1.06;
+            font-size: 40px;
+            line-height: 1.08;
             font-weight: 800;
-            letter-spacing: -1.2px;
+            letter-spacing: -0.9px;
             margin: 8px 0 10px 0;
-            color: #003B79;
+            color: #0B2F5B;
         }
 
         .hero p {
-            color: #475569;
-            font-size: 17px;
+            color: #405166;
+            font-size: 16px;
+            line-height: 1.6;
             max-width: 1050px;
             margin-bottom: 0;
         }
 
         .badge {
             display: inline-block;
-            padding: 7px 13px;
+            padding: 7px 12px;
             border-radius: 999px;
-            background: #E7F1FF;
-            color: #0057B8;
-            border: 1px solid #C8DDF5;
-            font-weight: 700;
+            background: #EAF2FA;
+            color: #0B5CAD;
+            border: 1px solid #C9DAEA;
+            font-weight: 800;
             font-size: 12px;
             margin-right: 8px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             letter-spacing: 0.3px;
+        }
+
+        .badge-kraft {
+            background: #F5E9D7;
+            color: #7A4F1E;
+            border: 1px solid #E5C99E;
         }
 
         .glass-card {
             padding: 22px;
-            border-radius: 20px;
+            border-radius: 18px;
             background: #FFFFFF;
-            border: 1px solid #D9E6F2;
-            box-shadow: 0 12px 34px rgba(15, 23, 42, 0.07);
+            border: 1px solid #D8E1EA;
+            box-shadow: 0 10px 28px rgba(16, 32, 51, 0.07);
         }
 
         div[data-testid="metric-container"] {
             background: #FFFFFF;
-            border: 1px solid #D9E6F2;
-            padding: 18px;
-            border-radius: 18px;
-            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.07);
+            border: 1px solid #D8E1EA;
+            padding: 17px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(16, 32, 51, 0.07);
         }
 
         div[data-testid="metric-container"] label {
-            color: #64748B !important;
-            font-weight: 600;
+            color: #5F6F83 !important;
+            font-weight: 700;
         }
 
         div[data-testid="metric-container"] [data-testid="stMetricValue"] {
-            color: #003B79;
+            color: #0B2F5B !important;
             font-weight: 800;
+        }
+
+        h1, h2, h3, h4 {
+            color: #0B2F5B;
+            font-weight: 800;
+        }
+
+        p, span, label, div {
+            color: inherit;
+        }
+
+        .stMarkdown,
+        .stText,
+        .stCaption {
+            color: #26384D;
         }
 
         .warning-box {
             padding: 16px 18px;
-            border-radius: 16px;
-            background: #FFF8E6;
-            border: 1px solid #F4D38A;
-            color: #7A4E00;
+            border-radius: 14px;
+            background: #FFF7E8;
+            border: 1px solid #E8C47E;
+            color: #5B3A0B;
         }
 
         .success-box {
             padding: 16px 18px;
-            border-radius: 16px;
-            background: #ECFDF5;
-            border: 1px solid #A7F3D0;
-            color: #065F46;
+            border-radius: 14px;
+            background: #EEF8F1;
+            border: 1px solid #A9D8B3;
+            color: #14532D;
         }
 
         .footer {
-            color: #64748B;
+            color: #65758A;
             font-size: 13px;
             padding-top: 30px;
             text-align: center;
@@ -165,33 +211,43 @@ def inject_css() -> None:
 
         .stButton > button,
         .stDownloadButton > button {
-            background: #0057B8 !important;
+            background: #0B5CAD !important;
             color: #FFFFFF !important;
-            border: 1px solid #0057B8 !important;
-            border-radius: 12px !important;
-            font-weight: 700 !important;
+            border: 1px solid #0B5CAD !important;
+            border-radius: 10px !important;
+            font-weight: 800 !important;
             padding: 0.65rem 1rem !important;
-            box-shadow: 0 8px 20px rgba(0, 87, 184, 0.20);
+            box-shadow: 0 6px 16px rgba(11, 92, 173, 0.20);
         }
 
         .stButton > button:hover,
         .stDownloadButton > button:hover {
-            background: #003B79 !important;
-            border-color: #003B79 !important;
+            background: #0B2F5B !important;
+            border-color: #0B2F5B !important;
         }
 
         div[data-baseweb="select"] > div {
-            border-radius: 12px;
-            border-color: #C8DDF5;
+            border-radius: 10px !important;
+            border-color: #C8D5E2 !important;
+            background-color: #FFFFFF !important;
         }
 
-        input {
-            border-radius: 12px !important;
+        input,
+        textarea {
+            border-radius: 10px !important;
+            border-color: #C8D5E2 !important;
+            background-color: #FFFFFF !important;
+            color: #102033 !important;
         }
 
-        .block-container {
-            padding-top: 2rem;
-            padding-bottom: 3rem;
+        div[data-testid="stDataFrame"] {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid #D8E1EA;
+        }
+
+        hr {
+            border-color: #D8E1EA;
         }
         </style>
         """,
