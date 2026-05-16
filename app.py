@@ -188,9 +188,53 @@ def create_quote_excel_file(
             writer,
             index=False,
             sheet_name="Quote",
+            startrow=4,
         )
 
         worksheet = writer.sheets["Quote"]
+
+        # Title area
+        worksheet.merge_cells("A1:C1")
+        worksheet["A1"] = "IP Poland Pricing Engine"
+        worksheet["A1"].font = Font(
+            color="FFFFFF",
+            bold=True,
+            size=16,
+        )
+        worksheet["A1"].fill = PatternFill(
+            fill_type="solid",
+            fgColor="0F172A",
+        )
+        worksheet["A1"].alignment = Alignment(
+            horizontal="center",
+            vertical="center",
+        )
+
+        worksheet.merge_cells("A2:C2")
+        worksheet["A2"] = "Professional Quote Export"
+        worksheet["A2"].font = Font(
+            color="0F172A",
+            bold=True,
+            size=12,
+        )
+        worksheet["A2"].alignment = Alignment(
+            horizontal="center",
+            vertical="center",
+        )
+
+        worksheet.merge_cells("A3:C3")
+        worksheet["A3"] = f"Product: {product}"
+        worksheet["A3"].font = Font(
+            color="334155",
+            italic=True,
+        )
+        worksheet["A3"].alignment = Alignment(
+            horizontal="center",
+            vertical="center",
+        )
+
+        # Table header styling
+        header_row = 5
 
         header_fill = PatternFill(
             fill_type="solid",
@@ -202,12 +246,7 @@ def create_quote_excel_file(
             bold=True,
         )
 
-        body_alignment = Alignment(
-            vertical="top",
-            wrap_text=True,
-        )
-
-        for cell in worksheet[1]:
+        for cell in worksheet[header_row]:
             cell.fill = header_fill
             cell.font = header_font
             cell.alignment = Alignment(
@@ -215,8 +254,14 @@ def create_quote_excel_file(
                 vertical="center",
             )
 
+        # Body styling
+        body_alignment = Alignment(
+            vertical="top",
+            wrap_text=True,
+        )
+
         for row in worksheet.iter_rows(
-            min_row=2,
+            min_row=header_row + 1,
             max_row=worksheet.max_row,
             min_col=1,
             max_col=worksheet.max_column,
@@ -224,22 +269,25 @@ def create_quote_excel_file(
             for cell in row:
                 cell.alignment = body_alignment
 
-        column_widths = {
-            "A": 18,
-            "B": 32,
-            "C": 42,
-        }
+        # Column widths
+        worksheet.column_dimensions["A"].width = 18
+        worksheet.column_dimensions["B"].width = 32
+        worksheet.column_dimensions["C"].width = 42
 
-        for column_letter, width in column_widths.items():
-            worksheet.column_dimensions[column_letter].width = width
+        # Row heights
+        worksheet.row_dimensions[1].height = 28
+        worksheet.row_dimensions[2].height = 22
+        worksheet.row_dimensions[3].height = 22
+        worksheet.row_dimensions[header_row].height = 22
 
-        worksheet.freeze_panes = "A2"
-        worksheet.auto_filter.ref = worksheet.dimensions
+        # Freeze panes and filter
+        worksheet.freeze_panes = "A6"
+        worksheet.auto_filter.ref = f"A5:C{worksheet.max_row}"
 
     output.seek(0)
 
     return output.getvalue()
-
+    
 def result_chart(result: dict, product: str) -> None:
     fig = go.Figure()
 
