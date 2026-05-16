@@ -900,16 +900,17 @@ def main() -> None:
         st.title("Pricing Engine")
 
         page = st.radio(
-            "Navigation",
-            [
-                "Dashboard",
-                "Edge Protector",
-                "Tubes / Cores",
-                "Materials",
-                "Formula Audit",
-            ],
-            label_visibility="collapsed",
-        )
+    "Navigation",
+    [
+        "Dashboard",
+        "Edge Protector",
+        "Tubes / Cores",
+        "Materials",
+        "Formula Audit",
+        "Validation",
+    ],
+    label_visibility="collapsed",
+)
 
         st.divider()
 
