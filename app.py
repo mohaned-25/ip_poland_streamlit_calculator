@@ -1963,6 +1963,8 @@ def quote_builder_page() -> None:
         hide_index=True,
     )
 def dashboard_page() -> None:
+    interpack_brand_header()
+
     st.subheader("🚀 Command Center")
 
     catalog = load_formula_catalog()
@@ -2591,7 +2593,6 @@ def formula_audit_page() -> None:
 def main() -> None:
     require_login()
     inject_css()
-    interpack_brand_header()
     hero()
 
     with st.sidebar:
