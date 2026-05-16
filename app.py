@@ -576,52 +576,180 @@ def formula_audit_page() -> None:
 
     catalog = load_formula_catalog()
 
-    st.metric(
-        "Extracted formula cells",
-        f"{catalog.get('total_formulas', 0):,}",
-    )
-
-    stats = pd.DataFrame(catalog.get("sheet_stats", []))
-
-    if not stats.empty:
-        st.dataframe(stats, use_container_width=True, hide_index=True)
-    else:
-        st.info(
-            "Formula catalog is not uploaded yet. "
-            "The app will still work for Edge and Tube calculators."
-        )
-
+    total_formulas = catalog.get("total_formulas", 0)
+    sheet_stats = catalog.get("sheet_stats", [])
     formulas = catalog.get("formulas", [])
 
-    if formulas:
-        sheet_names = [item.get("sheet", "") for item in catalog.get("sheet_stats", [])]
+    c1, c2, c3, c4 = st.columns(4)
 
-        sheet = st.selectbox(
+    c1.metric("Extracted formula cells", f"{total_formulas:,}")
+    c2.metric("Workbook sheets", f"{len(sheet_stats):,}")
+    c3.metric(
+        "Migrated MVP modules",
+        "2",
+        help="Edge Protectors and Tubes / Cores are currently included in the MVP engine.",
+    )
+    c4.metric(
+        "Pending modules",
+        "4+",
+        help="HoneyComb, Cardboard Pallets, Technology sheets, and full formula validation.",
+    )
+
+    if not sheet_stats:
+        st.info(
+            "No formula catalog found yet. "
+            "Create data/formula_catalog.json to display workbook formula statistics."
+        )
+        return
+
+    st.markdown("### Workbook formula distribution")
+
+    stats_df = pd.DataFrame(sheet_stats)
+
+    expected_columns = ["sheet", "formulas", "rows", "cols", "status"]
+
+    for col in expected_columns:
+        if col not in stats_df.columns:
+            stats_df[col] = ""
+
+    st.dataframe(
+        stats_df[expected_columns],
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    chart_df = stats_df.copy()
+    chart_df["formulas"] = pd.to_numeric(
+        chart_df["formulas"],
+        errors="coerce",
+    ).fillna(0)
+
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Bar(
+            x=chart_df["sheet"],
+            y=chart_df["formulas"],
+            marker=dict(color="#00E5FF"),
+            text=chart_df["formulas"],
+            textposition="outside",
+        )
+    )
+
+    fig.update_layout(
+        title="Formula count by workbook sheet",
+        xaxis_title="Sheet",
+        yaxis_title="Formula cells",
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(color="#E5E7EB"),
+        height=430,
+        margin=dict(l=20, r=20, t=60, b=120),
+        xaxis_tickangle=-35,
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+
+    st.markdown("### Migration interpretation")
+
+    st.markdown(
+        """
+        <div class='warning-box'>
+            The formula catalog is used as the Excel-to-Python migration map.
+            It should not be pasted directly into the Streamlit UI or into one huge Python file.
+            Instead, formulas should be migrated module by module into clean Python functions
+            inside <b>core/formulas.py</b>.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown("### Migration priority")
+
+    priority_df = pd.DataFrame(
+        [
+            {
+                "Priority": 1,
+                "Module": "Edge Protectors",
+                "Reason": "Already included in the MVP formula engine.",
+                "Next Action": "Validate against Excel benchmarks.",
+            },
+            {
+                "Priority": 2,
+                "Module": "Tubes / Cores",
+                "Reason": "Already included in the MVP formula engine.",
+                "Next Action": "Validate against Excel benchmarks.",
+            },
+            {
+                "Priority": 3,
+                "Module": "Paper Database",
+                "Reason": "Material parameters are required by all calculators.",
+                "Next Action": "Add admin editing and real price fields.",
+            },
+            {
+                "Priority": 4,
+                "Module": "Cardboard Pallets",
+                "Reason": "Medium formula complexity and useful business module.",
+                "Next Action": "Create pallet calculator page.",
+            },
+            {
+                "Priority": 5,
+                "Module": "HoneyComb",
+                "Reason": "Highest formula complexity.",
+                "Next Action": "Migrate after simpler modules are validated.",
+            },
+        ]
+    )
+
+    st.dataframe(
+        priority_df,
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    st.markdown("### Formula search")
+
+    if formulas:
+        sheet_names = [item.get("sheet", "") for item in sheet_stats]
+
+        selected_sheet = st.selectbox(
             "Filter by sheet",
             ["All"] + sheet_names,
         )
 
-        if sheet != "All":
-            formulas = [f for f in formulas if f.get("sheet") == sheet]
+        filtered_formulas = formulas
 
-        query = st.text_input("Search formula text / cell")
+        if selected_sheet != "All":
+            filtered_formulas = [
+                item
+                for item in filtered_formulas
+                if item.get("sheet") == selected_sheet
+            ]
+
+        query = st.text_input("Search formula text or cell reference")
 
         if query:
             q = query.lower()
-            formulas = [
-                f
-                for f in formulas
-                if q in str(f.get("formula", "")).lower()
-                or q in str(f.get("cell", "")).lower()
+            filtered_formulas = [
+                item
+                for item in filtered_formulas
+                if q in str(item.get("formula", "")).lower()
+                or q in str(item.get("cell", "")).lower()
             ]
 
         st.dataframe(
-            pd.DataFrame(formulas[:1000]),
+            pd.DataFrame(filtered_formulas[:1000]),
             use_container_width=True,
             hide_index=True,
         )
 
         st.caption("Showing first 1000 filtered formulas for performance.")
+    else:
+        st.info(
+            "Lightweight formula catalog is loaded. "
+            "Full individual formula search will become available after uploading "
+            "the full extracted formula catalog."
+        )
 
 
 def main() -> None:
