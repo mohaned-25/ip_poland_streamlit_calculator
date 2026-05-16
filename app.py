@@ -927,6 +927,18 @@ def main() -> None:
         materials_page()
     elif page == "Formula Audit":
         formula_audit_page()
+        if page == "Dashboard":
+    dashboard_page()
+elif page == "Edge Protector":
+    edge_page()
+elif page == "Tubes / Cores":
+    tube_page()
+elif page == "Materials":
+    materials_page()
+elif page == "Formula Audit":
+    formula_audit_page()
+elif page == "Validation":
+    validation_page()
 
     st.markdown(
         """
