@@ -145,6 +145,34 @@ def hero() -> None:
 def money(value: float) -> str:
     return f"{value:,.4f} PLN"
 
+def convert_from_pln(
+    value_pln: float,
+    currency: str,
+) -> float:
+    fx_rates = load_materials().get("fx_rates", {})
+
+    if currency == "PLN":
+        return value_pln
+
+    rate = fx_rates.get(currency)
+
+    if not rate:
+        return value_pln
+
+    return value_pln / rate
+
+
+def money_in_currency(
+    value_pln: float,
+    currency: str,
+) -> str:
+    converted_value = convert_from_pln(
+        value_pln=value_pln,
+        currency=currency,
+    )
+
+    return f"{converted_value:,.4f} {currency}"
+
 
 def number(value: float, digits: int = 3) -> str:
     return f"{value:,.{digits}f}"
