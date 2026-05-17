@@ -1,6 +1,17 @@
-# IP Poland Pricing Engine
+## About This Project
 
-A professional Streamlit-based pricing and production calculator for industrial packaging products, migrated from the original Excel workbook:
+**Inter-Pack Pricing Engine** is a Streamlit-based pricing and production calculation platform designed for industrial packaging products.
 
-```text
-Calculator_ceny_IP Poland_2025 w_o price.xlsx
+The application modernizes the original Excel-based pricing workflow into a web application with a professional interface, modular Python formula logic, quotation export, material database access, and formula validation tools.
+
+The current MVP focuses on:
+
+- 🧱 Edge Protector pricing
+- 🌀 Tubes / Cores pricing
+- 🧾 Quote Builder
+- 📦 Material database view
+- 🧬 Excel formula audit
+- ✅ Validation against Excel benchmark values
+- 📤 CSV and Excel quote export
+
+The long-term goal is to progressively migrate the full Excel workbook logic into a structured Python pricing engine that can support internal sales, production, and quotation workflows.
